@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CG Policy Portal — Government of Chhattisgarh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#18181b;--ink2:#52525b;--ink3:#a1a1aa;
+  --bg:#f4f2ee;--surf:#fff;--surf2:#f9f8f6;
+  --bdr:#e4e0d8;--bdr2:#ccc8be;
+  --org:#c1440e;--org-lt:#fff3ee;--org-dk:#8a2f09;
+  --grn:#166534;--grn-lt:#f0fdf4;
+  --blu:#1e3a8a;--blu-lt:#eff6ff;
+  --amb:#92400e;--amb-lt:#fffbeb;
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.6;color:var(--ink);background:var(--bg)}
+
+/* ── HEADER ── */
+.hdr{background:var(--ink);border-bottom:3px solid var(--org);position:sticky;top:0;z-index:300}
+.hdr-i{max-width:1200px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr-brand{display:flex;align-items:center;gap:12px}
+.hdr-logo{width:36px;height:36px;background:var(--org);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:"DM Serif Display",serif;font-size:14px;color:#fff;flex-shrink:0}
+.hdr-name{font-size:15px;font-weight:600;color:#fff}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em}
+.hdr-pill{font-size:11px;font-weight:600;background:var(--org);color:#fff;padding:4px 12px;border-radius:20px;white-space:nowrap}
+
+/* ── HERO ── */
+.hero{background:var(--ink);padding:48px 24px 56px}
+.hero-i{max-width:1200px;margin:0 auto}
+.hero-eye{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--org);margin-bottom:10px}
+.hero-h{font-family:"DM Serif Display",serif;font-size:clamp(28px,4vw,44px);color:#fff;line-height:1.15;margin-bottom:10px}
+.hero-h em{color:var(--org);font-style:italic}
+.hero-p{font-size:14px;color:rgba(255,255,255,.55);max-width:560px;margin-bottom:32px;line-height:1.75}
+.stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:36px}
+.stat-n{font-family:"DM Serif Display",serif;font-size:28px;color:#fff;line-height:1}
+.stat-l{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+
+/* HERO SEARCH */
+.hero-search{max-width:620px}
+.hero-search-wrap{display:flex;gap:8px}
+.hero-search-wrap input{
+  flex:1;padding:13px 18px;font-family:"DM Sans",sans-serif;font-size:15px;
+  border:none;border-radius:var(--r8);background:#fff;color:var(--ink);
+  box-shadow:0 0 0 2px rgba(255,255,255,.15);
+}
+.hero-search-wrap input:focus{outline:none;box-shadow:0 0 0 2px var(--org)}
+.btn-wizard{padding:13px 20px;background:var(--org);color:#fff;border:none;border-radius:var(--r8);font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.btn-wizard:hover{background:var(--org-dk)}
+
+/* ── WIZARD ── */
+.wizard-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;align-items:center;justify-content:center;padding:20px}
+.wizard-overlay.open{display:flex}
+.wizard-box{background:#fff;border-radius:var(--r16);width:100%;max-width:560px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.wiz-header{background:var(--ink);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.wiz-title{font-family:"DM Serif Display",serif;font-size:20px;color:#fff}
+.wiz-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;line-height:1}
+.wiz-close:hover{color:#fff}
+.wiz-progress{height:3px;background:#333}
+.wiz-bar{height:3px;background:var(--org);transition:width .3s}
+.wiz-body{padding:28px 24px}
+.wiz-q{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.wiz-hint{font-size:13px;color:var(--ink3);margin-bottom:20px}
+.wiz-options{display:flex;flex-direction:column;gap:8px}
+.wiz-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1.5px solid var(--bdr);border-radius:var(--r8);cursor:pointer;transition:border-color .15s,background .15s;font-size:14px;font-weight:500}
+.wiz-opt:hover{border-color:var(--org);background:var(--org-lt)}
+.wiz-opt.selected{border-color:var(--org);background:var(--org-lt);color:var(--org-dk)}
+.wiz-opt-icon{font-size:20px}
+.wiz-footer{padding:0 24px 24px;display:flex;gap:10px;justify-content:flex-end}
+.btn-sec{padding:10px 18px;border:1.5px solid var(--bdr);background:#fff;border-radius:var(--r8);font-size:14px;font-weight:600;cursor:pointer;color:var(--ink2)}
+.btn-sec:hover{border-color:var(--bdr2)}
+.btn-prim{padding:10px 20px;background:var(--org);color:#fff;border:none;border-radius:var(--r8);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-prim:hover{background:var(--org-dk)}
+.btn-prim:disabled{opacity:.4;cursor:not-allowed}
+.wiz-results{padding:0 24px 24px}
+.wiz-results-title{font-size:13px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.wiz-match{padding:12px 14px;border:1px solid var(--bdr);border-radius:var(--r8);margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.wiz-match:hover{border-color:var(--org)}
+.wiz-match-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.wiz-match-sec{font-size:12px;color:var(--ink3)}
+.wiz-none{text-align:center;padding:20px;color:var(--ink3);font-size:14px}
+
+/* ── CALC MODAL ── */
+.calc-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;align-items:center;justify-content:center;padding:20px}
+.calc-overlay.open{display:flex}
+.calc-box{background:#fff;border-radius:var(--r16);width:100%;max-width:480px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.calc-header{background:var(--ink);padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.calc-title{font-family:"DM Serif Display",serif;font-size:18px;color:#fff}
+.calc-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer}
+.calc-close:hover{color:#fff}
+.calc-body{padding:24px}
+.calc-field{margin-bottom:16px}
+.calc-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:6px}
+.calc-input{width:100%;padding:10px 14px;border:1.5px solid var(--bdr);border-radius:var(--r8);font-size:15px;font-family:"DM Sans",sans-serif;color:var(--ink)}
+.calc-input:focus{outline:none;border-color:var(--org)}
+.calc-result{background:var(--org-lt);border:1.5px solid var(--org);border-radius:var(--r8);padding:16px;margin-top:8px}
+.calc-result-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--org-dk);margin-bottom:6px}
+.calc-result-val{font-family:"DM Serif Display",serif;font-size:28px;color:var(--org-dk)}
+.calc-result-note{font-size:12px;color:var(--org-dk);margin-top:4px;opacity:.8}
+
+/* ── FILTER BAR ── */
+.fbar{background:var(--surf);border-bottom:1px solid var(--bdr);position:sticky;top:59px;z-index:200}
+.fbar-i{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.fg{display:flex;flex-direction:column;gap:4px;flex:1;min-width:140px}
+.fg-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3)}
+.fg select{padding:8px 12px;font-family:"DM Sans",sans-serif;font-size:13px;border:1.5px solid var(--bdr);border-radius:var(--r4);background:var(--surf);color:var(--ink);appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a1a1aa'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer}
+.fg select:focus{outline:none;border-color:var(--org)}
+.fg-wide{flex:2.5;min-width:200px}
+.rcount{font-size:12px;color:var(--ink3);padding-bottom:9px;align-self:flex-end;white-space:nowrap}
+
+/* TAG CHIPS on filter bar */
+.tag-filters{display:flex;gap:6px;flex-wrap:wrap;align-self:flex-end;padding-bottom:4px}
+.tf{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--bdr);background:#fff;cursor:pointer;color:var(--ink2);transition:all .15s}
+.tf:hover,.tf.on{border-color:var(--org);background:var(--org-lt);color:var(--org-dk)}
+
+/* ── MAIN ── */
+.main{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+
+/* SECTOR HEADING */
+.sec-h{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);padding:20px 0 9px;border-bottom:1px solid var(--bdr);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-h::before{content:"";width:3px;height:13px;background:var(--org);border-radius:2px;flex-shrink:0}
+.sec-count{font-size:11px;background:var(--bdr);color:var(--ink3);padding:1px 7px;border-radius:20px}
+
+/* POLICY CARD */
+.pc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r12);margin-bottom:8px;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.pc:hover{border-color:var(--bdr2);box-shadow:var(--shadow)}
+.pc.open{border-color:var(--org);box-shadow:0 0 0 1.5px var(--org)}
+
+.pc-hdr{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;user-select:none}
+.pc-hdr:hover{background:var(--surf2)}
+.pc-num{font-size:11px;font-weight:600;color:var(--ink3);min-width:24px;padding-top:3px;font-variant-numeric:tabular-nums}
+.pc-main{flex:1;min-width:0}
+.pc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;align-items:center}
+
+.tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.t-sec{background:var(--org-lt);color:var(--org-dk)}
+.t-ben{background:var(--grn-lt);color:var(--grn)}
+.t-act{background:#f0fdf4;color:#166534}
+.t-flagship{background:#fef9c3;color:#713f12;border:1px solid #fde047}
+.t-new{background:var(--blu-lt);color:var(--blu)}
+.t-inclusive{background:#fdf4ff;color:#7e22ce}
+.t-employment{background:#f0f9ff;color:#0369a1}
+.t-agro{background:#f0fdf4;color:#15803d}
+.t-land{background:#fff7ed;color:#c2410c}
+.t-amended{background:var(--amb-lt);color:var(--amb)}
+
+.pc-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.35}
+.pc-sum{font-size:13px;color:var(--ink2);line-height:1.6}
+.pc-dept{font-size:11px;color:var(--ink3);margin-top:4px}
+.pc-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;padding-top:2px}
+.btn-calc{font-size:11px;font-weight:600;padding:4px 10px;background:var(--org-lt);color:var(--org-dk);border:1px solid var(--org);border-radius:20px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.btn-calc:hover{background:var(--org);color:#fff}
+.pc-arr{color:var(--ink3);font-size:12px;transition:transform .2s;flex-shrink:0;padding-top:3px}
+.pc.open .pc-arr{transform:rotate(180deg);color:var(--org)}
+
+/* CARD BODY */
+.pc-body{display:none;border-top:1px solid var(--bdr);background:var(--surf2)}
+.pc.open .pc-body{display:block}
+.pc-body-inner{padding:20px 18px 20px 54px}
+
+.section-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:8px}
+
+.benefits{margin-bottom:16px}
+.ben-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink);margin-bottom:5px}
+.ben-dot{width:6px;height:6px;background:var(--org);border-radius:50%;flex-shrink:0;margin-top:5px}
+
+.det-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:14px}
+.det-item{background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);padding:9px 12px}
+.det-k{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:3px}
+.det-v{font-size:13px;font-weight:500;color:var(--ink);line-height:1.5}
+
+/* DOCS */
+.docs-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.doc-chip{font-size:12px;background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);padding:4px 10px;color:var(--ink2);display:flex;align-items:center;gap:5px}
+.doc-chip::before{content:"📄";font-size:11px}
+
+/* AMENDMENTS */
+.amend-list{margin-bottom:14px}
+.amend-item{display:flex;gap:10px;font-size:13px;margin-bottom:6px;align-items:flex-start}
+.amend-date{font-size:11px;font-weight:600;color:var(--amb);background:var(--amb-lt);padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.amend-note{color:var(--ink2);line-height:1.5}
+
+/* NODAL OFFICER */
+.nodal-bar{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);margin-bottom:14px}
+.nodal-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.nodal-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:2px}
+.nodal-val{font-size:13px;color:var(--ink);font-weight:500}
+
+/* SOURCE */
+.src-bar{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);flex-wrap:wrap}
+.src-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
+.src-a{font-size:12px;color:var(--blu);text-decoration:none}
+.src-a:hover{text-decoration:underline}
+.src-ref{margin-left:auto;font-size:11px;color:var(--ink3)}
+
+/* REPORT */
+.report-btn{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12px;color:var(--ink3);cursor:pointer;background:none;border:none;padding:0}
+.report-btn:hover{color:var(--org)}
+
+/* NO RESULTS */
+.nores{text-align:center;padding:60px 20px;color:var(--ink3)}
+.nores-t{font-family:"DM Serif Display",serif;font-size:20px;color:var(--ink2);margin-bottom:6px}
+
+/* API CALLOUT */
+.api-note{background:#fff;border:1px solid var(--bdr);border-radius:var(--r8);padding:14px 18px;font-size:13px;color:var(--ink2);margin-bottom:20px;display:flex;align-items:flex-start;gap:10px;line-height:1.6}
+.api-note code{font-size:11px;background:var(--bg);padding:2px 6px;border-radius:3px;color:var(--org-dk);font-family:monospace}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.4);font-size:12px;padding:28px 24px;text-align:center;line-height:2}
+footer strong{color:#fff}
+footer a{color:rgba(255,255,255,.5)}
+
+@media(max-width:640px){
+  .hero{padding:28px 16px 36px}
+  .stats{gap:16px}
+  .fbar-i,.main{padding-left:16px;padding-right:16px}
+  .pc-body-inner{padding:16px}
+  .pc-num{display:none}
+  .hero-search-wrap{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-i">
+    <div class="hdr-brand">
+      <div class="hdr-logo">CG</div>
+      <div>
+        <div class="hdr-name">CG Policy Portal</div>
+        <div class="hdr-sub">Government of Chhattisgarh</div>
+      </div>
+    </div>
+    <div class="hdr-pill">Active Policies Only</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-i">
+    <p class="hero-eye">One-stop reference — verified &amp; source-linked</p>
+    <h1 class="hero-h">Chhattisgarh <em>Government Policies</em><br>in One Place</h1>
+    <p class="hero-p">Browse all active state schemes across industry, agriculture, startups, labour, and welfare. Every policy is source-verified with documents, nodal officers, and amendment history.</p>
+    <div class="stats">
+      <div><div class="stat-n" id="sTot">32</div><div class="stat-l">Active Policies</div></div>
+      <div><div class="stat-n">9</div><div class="stat-l">Sectors</div></div>
+      <div><div class="stat-n">100%</div><div class="stat-l">Source Verified</div></div>
+      <div><div class="stat-n">2024–26</div><div class="stat-l">Policy Period</div></div>
+    </div>
+    <div class="hero-search">
+      <div class="hero-search-wrap">
+        <input type="text" id="qSearch" placeholder="Search policies, benefits, schemes…" autocomplete="off"/>
+        <button class="btn-wizard" onclick="openWizard()">🎯 Policy Finder</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGIBILITY WIZARD -->
+<div class="wizard-overlay" id="wizOverlay" onclick="if(event.target===this)closeWizard()">
+  <div class="wizard-box">
+    <div class="wiz-header">
+      <div class="wiz-title">Policy Finder</div>
+      <button class="wiz-close" onclick="closeWizard()">✕</button>
+    </div>
+    <div class="wiz-progress"><div class="wiz-bar" id="wizBar" style="width:0%"></div></div>
+    <div class="wiz-body" id="wizBody"></div>
+    <div class="wiz-footer" id="wizFooter"></div>
+  </div>
+</div>
+
+<!-- SUBSIDY CALCULATOR -->
+<div class="calc-overlay" id="calcOverlay" onclick="if(event.target===this)closeCalc()">
+  <div class="calc-box">
+    <div class="calc-header">
+      <div class="calc-title" id="calcTitle">Subsidy Calculator</div>
+      <button class="calc-close" onclick="closeCalc()">✕</button>
+    </div>
+    <div class="calc-body" id="calcBody"></div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="fbar">
+  <div class="fbar-i">
+    <div class="fg fg-wide">
+      <label class="fg-lbl" for="qSector">Sector</label>
+      <select id="qSector" onchange="applyFilters()"><option value="">All sectors</option></select>
+    </div>
+    <div class="fg">
+      <label class="fg-lbl" for="qBen">Beneficiary</label>
+      <select id="qBen" onchange="applyFilters()"><option value="">All beneficiaries</option></select>
+    </div>
+    <div class="tag-filters" id="tagFilters"></div>
+    <span class="rcount" id="rCount"></span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="api-note">
+    <span>🔌</span>
+    <span>
+      <strong>Public API:</strong> This portal's data is available as a public API at
+      <code>GET /policies.json</code> — free to use for apps serving CG citizens.
+      To add or update a policy, edit <code>policies.json</code> in the GitHub repo and push — Vercel redeploys in 30 seconds.
+    </span>
+  </div>
+  <div id="container"></div>
+</main>
+
+<footer>
+  <strong>CG Policy Portal</strong> — Civic Tech Initiative<br>
+  Data sourced from official CG Gazette notifications, departmental documents, and verified sources.<br>
+  For legally binding information, always refer to official government notifications.<br>
+  <a href="https://industries.cg.gov.in" target="_blank">industries.cg.gov.in</a> &nbsp;·&nbsp;
+  <a href="https://invest.cg.gov.in" target="_blank">invest.cg.gov.in</a> &nbsp;·&nbsp;
+  <a href="https://cg.gov.in" target="_blank">cg.gov.in</a>
+</footer>
+
+<script>
+const P = [{"id":1,"title":"Net SGST Reimbursement","sector":"Industry & Manufacturing","department":"Dept. of Commerce & Industry","beneficiary":["Entrepreneur","Large Industry","MSME"],"status":"Active","tag":"flagship","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"New industries receive 100% net SGST reimbursement for 10 years, capped at 150% of Fixed Capital Investment (FCI).","keyBenefits":["100% net SGST reimbursed for 10 years","Cap: 150% of Fixed Capital Investment","Micro: single instalment; Small: 3 annual; Medium: 5 annual"],"eligibility":"New manufacturing or service industries commencing production on or after 1 Nov 2024","applyAt":"Single Window System — invest.cg.gov.in","nodalOfficer":"Director of Industries, Dept. of Commerce & Industry, Raipur","documents":["Investment Proof / Project Cost Certificate","GSTIN Registration","Udyam Registration Certificate","Bank Account Details","Commencement of Production Certificate","CA-certified Fixed Capital Investment statement"],"amendments":[{"date":"Feb 2025","note":"Policy formally notified via Gazette on 27 Feb 2025"},{"date":"Jul 2025","note":"Cabinet approved amendments making policy more employment-oriented; logistics hub provisions added"}],"calculatorType":"sgst","source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":2,"title":"EPF Contribution Reimbursement","sector":"Industry & Manufacturing","department":"Dept. of Commerce & Industry","beneficiary":["Entrepreneur","MSME"],"status":"Active","tag":"employment","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"75% of EPF contribution reimbursed for skilled and semi-skilled CG domicile employees for up to 5 years from commercial production. Capped at ₹1 crore per year.","keyBenefits":["75% of EPF contribution reimbursed","Duration: up to 5 years from commercial production","Annual cap: ₹1 crore per year","Employees must earn below ₹50,000/month"],"eligibility":"New industries; CG domicile skilled/semi-skilled workers with wages under ₹50,000/month","applyAt":"Dept. of Commerce & Industry / District Industries Centre","nodalOfficer":"General Manager, District Industries Centre (DIC) of respective district","documents":["EPF Challan copies","Employee domicile certificates","Salary slips","Udyam Registration","Commencement of Production Certificate"],"amendments":[{"date":"Jul 2025","note":"Revamped Divyangjan definition to expand eligibility under employment subsidy provisions"}],"calculatorType":null,"source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":3,"title":"Marginal Money Subsidy — SC/ST, Women & Special Categories","sector":"MSME","department":"Dept. of Commerce & Industry","beneficiary":["SC/ST","Women Entrepreneur","Divyangjan","Surrendered Naxalite","Ex-Serviceman","Agniveer"],"status":"Active","tag":"inclusive","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"25% capital investment subsidy for new micro and small enterprises by SC/ST, women, ex-servicemen, Agniveers, Divyangjan, third-gender, and surrendered Naxalites. Max ₹1 crore.","keyBenefits":["25% of capital investment as subsidy","Eligible investment cap: ₹10 crore","Maximum subsidy: ₹1 crore","Micro and small enterprises only"],"eligibility":"New micro/small enterprises by SC/ST, Women, Ex-servicemen, Agniveers, Divyangjan, Third-gender, Surrendered Naxalites","applyAt":"District Industries Centre (DIC)","nodalOfficer":"General Manager, District Industries Centre of respective district","documents":["Caste/Category Certificate (SC/ST/OBC)","Domicile Certificate","Project Cost Certificate from CA","Bank Loan Sanction Letter","Udyam Registration","Identity proof (Aadhaar)"],"amendments":[],"calculatorType":"marginal","source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":4,"title":"Mandi Tax Exemption — Agro & Food Processing","sector":"Industry & Manufacturing","department":"Dept. of Commerce & Industry","beneficiary":["Entrepreneur","Large Industry"],"status":"Active","tag":"agro","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"100% exemption from mandi tax for new large enterprises in agriculture, food processing, and biofuel/ethanol sectors for 5 years from first raw material purchase.","keyBenefits":["100% mandi tax exemption for 5 years","Annual cap: ₹5 crore per year","Total cap: 75% of Fixed Capital Investment","Raw material from state mandis or direct farmers"],"eligibility":"New large enterprises in agro, food processing, biofuel/ethanol sectors","applyAt":"Dept. of Commerce & Industry","nodalOfficer":"Commissioner, Dept. of Commerce & Industry, Raipur","documents":["FSSAI License","Raw material purchase invoices from mandis","Fixed Capital Investment certificate","Udyam / IEM Registration","GST Returns"],"amendments":[],"calculatorType":null,"source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":5,"title":"Training Expense Reimbursement","sector":"Industry & Manufacturing","department":"Dept. of Commerce & Industry","beneficiary":["Entrepreneur","MSME"],"status":"Active","tag":"employment","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"One-time reimbursement of training expenses equal to one month's wage or ₹15,000 per person (whichever is less) for new CG domicile employees.","keyBenefits":["Reimbursement: 1 month wage or ₹15,000, whichever is less","Applicable for 5 years from commercial production","Capped at 100% of Fixed Capital Investment","First claim payable 1 year after employee appointment"],"eligibility":"New industries; CG domicile skilled/semi-skilled employees earning below ₹50,000/month","applyAt":"District Industries Centre","nodalOfficer":"General Manager, District Industries Centre","documents":["Employee appointment letters","Salary slips","Domicile certificates","Training completion certificates","Udyam Registration"],"amendments":[],"calculatorType":null,"source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":6,"title":"Land Premium Exemption — Industrial Areas","sector":"MSME","department":"Dept. of Commerce & Industry / CSIDC","beneficiary":["Entrepreneur","SC/ST","MSME"],"status":"Active","tag":"land","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"100% exemption on land premium for allotted industrial area land managed by CSIDC. Lease rent fixed at ₹1 per acre per year.","keyBenefits":["100% exemption on land premium","Lease rent: ₹1 per acre per year","CSIDC-managed industrial areas only","Maintenance charges payable separately"],"eligibility":"New industries allotted land in CSIDC / Directorate of Industries industrial areas","applyAt":"CSIDC Head Office, Raipur — csidc.cg.gov.in","nodalOfficer":"Managing Director, CSIDC, Raipur","documents":["Land Allotment Letter from CSIDC","Investment Plan / Project Report","Udyam Registration","Identity proof","Bank details"],"amendments":[],"calculatorType":null,"source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":7,"title":"Transport Cost Reimbursement","sector":"MSME","department":"Dept. of Commerce & Industry","beneficiary":["MSME","Entrepreneur"],"status":"Active","tag":null,"effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"50% reimbursement of transport costs (excluding mining products). Annual cap ₹50 lakh for up to 5 years.","keyBenefits":["50% of transport costs reimbursed","Annual cap: ₹50 lakh per year","Duration: 5 years","Mining product transport excluded"],"eligibility":"Eligible industries under IDP 2024–30 (non-mining sector)","applyAt":"District Industries Centre","nodalOfficer":"General Manager, District Industries Centre","documents":["Transport invoices / lorry receipts","Goods dispatch records","Bank statements","Udyam Registration","GST Returns"],"amendments":[],"calculatorType":null,"source":"https://finraja.com/chhattisgarh-industrial-policy-2024/","sourceLabel":"Finraja (citing IDP 2024–30)","policyRef":"IDP 2024–30"},{"id":8,"title":"Divyangjan & Surrendered Naxalite Employment Subsidy","sector":"Industry & Manufacturing","department":"Dept. of Commerce & Industry","beneficiary":["Divyangjan","Surrendered Naxalite","Agniveer","Entrepreneur"],"status":"Active","tag":"inclusive","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"40% salary reimbursement for 5 years for industries employing Divyangjan, retired Agniveers, and surrendered Naxalites. Annual cap ₹5 lakh.","keyBenefits":["40% net salary reimbursed","Annual cap: ₹5 lakh per annum","Duration: 5 years","Covers Divyangjan, retired Agniveers, surrendered Naxalites"],"eligibility":"Industries offering permanent employment to Divyangjan, retired Agniveers, surrendered Naxalites from CG","applyAt":"District Industries Centre","nodalOfficer":"General Manager, District Industries Centre","documents":["Disability certificate (for Divyangjan)","Surrender certificate (for ex-Naxalites)","Agniveer discharge certificate","Appointment letter","Salary slips","Bank account details of employee"],"amendments":[{"date":"Jul 2025","note":"Definition of Divyangjan expanded to include more categories for broader benefit coverage"}],"calculatorType":null,"source":"https://industries.cg.gov.in/pdf/policy2024-30/IDP_2024-30(Brief).pdf","sourceLabel":"IDP 2024–30 Official PDF","policyRef":"IDP 2024–30"},{"id":9,"title":"Startup Seed Funding — Proof of Concept","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder","Youth Entrepreneur"],"status":"Active","tag":"new","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"Seed funding up to ₹10 lakh for PoC/MVP development for state-recognised startups under the CG Innovation & Startup Promotion Policy 2025–30.","keyBenefits":["Seed funding up to ₹10 lakh per startup","For Proof of Concept / MVP development","State-recognised startups only","Women founders get 10% additional incentive"],"eligibility":"Startups recognised by Govt. of CG under Innovation & Startup Promotion Policy 2025–30","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Mantralaya, Raipur","documents":["State Startup Recognition Certificate","Business Plan / Pitch Deck","Founder Aadhaar & PAN","Bank Account Details","CG Domicile Certificate of founders"],"amendments":[{"date":"Apr 2025","note":"Notification GENS/1105/1/2025-COMM.&INDUS issued on 25 Apr 2025 operationalising interest subsidy provisions"}],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":10,"title":"Startup Capital Fund — ₹100 Crore Corpus","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder"],"status":"Active","tag":"new","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"₹100 crore CG Startup Capital Fund investing via SEBI-registered AIFs (50:50 co-investment). Separate ₹50 crore Credit Risk Fund for collateral-free loans up to ₹1 crore.","keyBenefits":["₹100 crore state corpus for startup investments","50:50 co-investment with SEBI-registered AIFs","₹50 crore Credit Risk Fund — collateral-free loans up to ₹1 crore","Investments via Alternative Investment Funds"],"eligibility":"State government-recognised startups; AIF investment subject to fund manager criteria","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Audited Financials (if any)","Business Plan","Pitch Deck","DPIIT Recognition (preferred)"],"amendments":[],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":11,"title":"Startup Interest Subsidy on Term Loans","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder"],"status":"Active","tag":"new","effectiveFrom":"25 Apr 2025","validTill":"31 Mar 2030","summary":"100% interest subsidy on loans up to ₹50 lakh at max 10% interest for 5 years. Notification GENS/1105/1/2025-COMM.&INDUS dated 25 Apr 2025.","keyBenefits":["100% interest subsidy on loans up to ₹50 lakh","Max interest rate covered: 10% per annum","Duration: 5 years","Also 75% subsidy on larger term loans under IDP 2024–30"],"eligibility":"State-recognised startups under CG Innovation & Startup Promotion Policy 2025–30","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Bank Loan Sanction Letter","Interest Payment Receipts","CA Certificate of loan utilisation"],"amendments":[{"date":"Apr 2025","note":"Operationalised via Notification GENS/1105/1/2025-COMM.&INDUS dated 25 April 2025"}],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":12,"title":"Startup Workspace Rental Reimbursement","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder"],"status":"Active","tag":"new","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"60% assistance on monthly workspace rent for 3 years. Capped at ₹15,000/month. Applicable for co-working spaces and incubation centres.","keyBenefits":["60% of monthly rent/lease reimbursed","Maximum: ₹15,000 per month","Duration: 3 years from recognition date","Covers co-working spaces and incubation centres"],"eligibility":"State-recognised startups with leased/rented workspaces","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Rent/Lease Agreement","Rent payment receipts","Landlord PAN","Bank statements"],"amendments":[],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":13,"title":"Startup Digital Advertising Reimbursement","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder"],"status":"Active","tag":"new","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"Up to ₹3 lakh per startup reimbursed for digital advertising on Meta, YouTube, LinkedIn, Google Ads, and Microsoft Ads.","keyBenefits":["Reimbursement up to ₹3 lakh per startup","Eligible: Meta, YouTube, LinkedIn, Google Ads, Microsoft Ads","Submit receipts/invoices for claim","One-time benefit per startup unit"],"eligibility":"State-recognised startups; receipts must be in startup's name","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Ad platform invoices (in startup name)","Bank statements showing payment","GST invoices where applicable"],"amendments":[],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":14,"title":"Women Startup Seat Reservation & Incentive Bonus","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Women Entrepreneur","Startup Founder","SC/ST"],"status":"Active","tag":"inclusive","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"10% reserved incubator seats + additional 10% bonus on all applicable subsidies and incentives for women founders and special category founders.","keyBenefits":["10% incubator seat reservation","Additional 10% bonus on all applicable incentives","Applies to all state-supported incubators","Stackable with other startup benefits"],"eligibility":"Startups with women founders or special category founders under 2025–30 policy","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Proof of women founder status","Category certificate if applicable"],"amendments":[],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":15,"title":"Startup Employment Subsidy — CG Domicile Workers","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry — Startup Cell","beneficiary":["Startup Founder"],"status":"Active","tag":"employment","effectiveFrom":"04 Feb 2025","validTill":"31 Mar 2030","summary":"Monthly salary subsidy: ₹6,000/month per female and ₹5,000/month per male CG domicile employee for 5 years. Minimum 10 on-roll employees required.","keyBenefits":["₹6,000/month per female CG domicile employee","₹5,000/month per male CG domicile employee","Minimum 10 on-roll employees required","Duration: 5 years from start of operations"],"eligibility":"State-recognised startups with 10+ on-roll CG domicile employees","applyAt":"invest.cg.gov.in/startup","nodalOfficer":"Startup Cell, Dept. of Commerce & Industry, Raipur","documents":["State Startup Recognition Certificate","Employee domicile certificates","Payroll records","PF/ESI records","Appointment letters"],"amendments":[],"calculatorType":null,"source":"https://invest.cg.gov.in/startup/startup","sourceLabel":"Startup Chhattisgarh Official Portal","policyRef":"CG Innovation & Startup Promotion Policy 2025–30"},{"id":16,"title":"Krishak Unnati Yojana — Paddy Procurement Bonus","sector":"Agriculture & Farming","department":"Dept. of Agriculture & Farmers Welfare","beneficiary":["Farmer"],"status":"Active","tag":"flagship","effectiveFrom":"Kharif 2023–24","validTill":"Ongoing","summary":"Farmers receive ₹3,100 per quintal for paddy — covering difference between central MSP and state-promised rate. ₹10,000 crore budgeted in 2025-26.","keyBenefits":["Procurement rate: ₹3,100 per quintal","Covers gap between central MSP and state rate","Budget 2025-26: ₹10,000 crore","Applicable from Kharif 2023–24"],"eligibility":"Paddy farmers registered in Chhattisgarh with valid land records","applyAt":"Nearest PACS / Cooperative Society / Mandi","nodalOfficer":"Director, Agriculture & Farmers Welfare, Indira Gandhi Krishi Vishwavidyalaya Campus, Raipur","documents":["Khasra / B1 (land record)","Aadhaar card","Bank passbook","Registered mobile number linked to Aadhaar","Farmer registration on agriportal.cg.nic.in"],"amendments":[{"date":"2024","note":"Renamed from Rajiv Gandhi Kisan NYAY Yojana after change in government; procurement rate revised to ₹3,100/quintal"}],"calculatorType":null,"source":"https://finance.cg.gov.in/budget_doc/2025-2026/Press%20Note/Press%20Note-E.pdf","sourceLabel":"CG Budget 2025–26 Press Note","policyRef":"Krishak Unnati Yojana"},{"id":17,"title":"Godhan Nyay Yojana — Cow Dung Purchase","sector":"Agriculture & Farming","department":"Dept. of Agriculture & Gaupalan","beneficiary":["Farmer","Cattle Rearer","Women SHG"],"status":"Active","tag":"flagship","effectiveFrom":"20 Jul 2020","validTill":"Ongoing","summary":"Government purchases cow dung at ₹2/kg via Gauthans. Women SHGs convert to vermicompost. Gaudham Yojana (2026) extended this with 29 new Gaudhams.","keyBenefits":["Cow dung purchased at ₹2 per kg","Payments every 15 days","Women SHGs earn from vermicompost production","Gaudham Yojana 2026: 29 new Surabhi Gaudhams"],"eligibility":"CG domicile cattle owners registered at local Gauthan/Ward Office","applyAt":"Nearest Gauthan, SLRM Centre, or Ward Office","nodalOfficer":"CG State Gauseva Commission, Raipur","documents":["Aadhaar card","Bank passbook","Number of cattle owned (declaration)","Mobile number","Residence proof"],"amendments":[{"date":"Mar 2026","note":"Gaudham Yojana launched — 29 new Surabhi Gaudhams inaugurated by CM Vishnu Deo Sai across 11 districts on 14 March 2026"}],"calculatorType":null,"source":"https://aimindia.in/chhattisgarh-godhan-nyay-yojana/","sourceLabel":"AIM India (2026 updated guide)","policyRef":"Godhan Nyay Yojana"},{"id":18,"title":"Free Electricity for Agriculture Pumps","sector":"Agriculture & Farming","department":"Dept. of Energy / Agriculture","beneficiary":["Farmer"],"status":"Active","tag":null,"effectiveFrom":"2025–26","validTill":"Ongoing","summary":"Free electricity for irrigation pumps up to 5 HP. ₹3,500 crore budgeted in 2025–26.","keyBenefits":["Free electricity for pumps up to 5 HP","Budget 2025–26: ₹3,500 crore","Reduces irrigation cost directly","Auto-applied on electricity account"],"eligibility":"Farmers with agriculture pump connections up to 5 HP in CG","applyAt":"CSPDCL / Local electricity office — cspdcl.co.in","nodalOfficer":"Executive Engineer, CSPDCL of respective district","documents":["Electricity consumer number","Khasra / B1 land records","Aadhaar","Pump capacity certificate"],"amendments":[],"calculatorType":null,"source":"https://finance.cg.gov.in/budget_doc/2025-2026/Press%20Note/Press%20Note-E.pdf","sourceLabel":"CG Budget 2025–26 Press Note","policyRef":"Budget 2025–26"},{"id":19,"title":"Deendayal Upadhyay Bhumihin Krishi Majdoor Yojana","sector":"Agriculture & Farming","department":"Dept. of Agriculture & Farmers Welfare","beneficiary":["Landless Agricultural Labourer"],"status":"Active","tag":"inclusive","effectiveFrom":"2024","validTill":"Ongoing","summary":"₹10,000 annual assistance for landless agricultural labourers. Targets 5.62 lakh+ landless farm workers across CG.","keyBenefits":["₹10,000 annual direct cash transfer","5.62 lakh+ target beneficiaries","Direct bank transfer","Landless farm workers only"],"eligibility":"Landless agricultural labourers who are CG domicile residents with no owned agricultural land","applyAt":"Gram Panchayat / Block Agriculture Office","nodalOfficer":"Block Agriculture Officer of respective block","documents":["Aadhaar card","Bank passbook","Residence / domicile certificate","No-land certificate from Patwari / Revenue officer","Labour card (if available)"],"amendments":[],"calculatorType":null,"source":"https://cgcompetitionpoint.in/important-schemes-of-chhattisgarh-government-march-2024/","sourceLabel":"CG Competition Point — Govt Schemes 2024","policyRef":"Deendayal Upadhyay Bhumihin Krishi Majdoor Yojana"},{"id":20,"title":"Mahtari Vandana Yojana — Women Monthly Support","sector":"Women & Social Welfare","department":"Women & Child Development Dept.","beneficiary":["Women"],"status":"Active","tag":"flagship","effectiveFrom":"2024","validTill":"Ongoing","summary":"₹1,000/month (₹12,000/year) direct transfer to eligible married women. ₹5,500 crore budgeted in 2025–26.","keyBenefits":["₹1,000/month direct bank transfer","₹12,000 per year per eligible woman","Budget 2025–26: ₹5,500 crore","Apply at mahtarivandan.cgstate.gov.in"],"eligibility":"Married women who are CG domicile residents aged 21+; income and other criteria apply","applyAt":"mahtarivandan.cgstate.gov.in / Ward Office / Gram Panchayat","nodalOfficer":"District Women & Child Development Officer of respective district","documents":["Aadhaar card","Marriage certificate","Domicile / residence certificate","Bank passbook (in woman's own name)","Mobile number"],"amendments":[{"date":"2024","note":"Launched as part of BJP election manifesto commitment; payments started in 2024"}],"calculatorType":null,"source":"https://finance.cg.gov.in/budget_doc/2025-2026/Press%20Note/Press%20Note-E.pdf","sourceLabel":"CG Budget 2025–26 Press Note","policyRef":"Mahtari Vandana Yojana"},{"id":21,"title":"Mukhyamantri Saksham Suraksha Yojana — Women Loan","sector":"Women & Social Welfare","department":"Women & Child Development Dept.","beneficiary":["Women Entrepreneur"],"status":"Active","tag":null,"effectiveFrom":"2025","validTill":"Ongoing","summary":"Women can access loans up to ₹1 lakh at 5% interest to start small businesses.","keyBenefits":["Loan up to ₹1 lakh","Interest rate: 5% per annum","For starting small businesses","Targets unorganised sector women"],"eligibility":"Women CG residents, part of Mahtari Vandana Yojana or qualifying SHGs","applyAt":"Women & Child Development Dept. / District office","nodalOfficer":"District Women & Child Development Officer","documents":["Aadhaar card","Mahtari Vandana Yojana enrollment proof","Business plan (brief)","Bank passbook","SHG membership certificate if applicable"],"amendments":[],"calculatorType":null,"source":"https://pmujjwalayojana.in/chhattisgarh/","sourceLabel":"Sarkari Yojana CG (2025)","policyRef":"Mukhyamantri Saksham Suraksha Yojana"},{"id":22,"title":"Nirman Shramik Pension Sahayata Yojana","sector":"Labour & Workforce","department":"Labour Dept. — Construction Workers Board","beneficiary":["Construction Worker","Labourer"],"status":"Active","tag":null,"effectiveFrom":"Ongoing","validTill":"Ongoing","summary":"₹1,500/month pension for registered construction workers aged 60+. Via CG Building & Other Construction Workers Welfare Board.","keyBenefits":["₹1,500/month pension","For registered construction workers aged 60+","Administered by CG Construction Workers Welfare Board","Separate from one-time Siyan Sahayata payment"],"eligibility":"Registered construction workers aged 60+ with minimum contribution period","applyAt":"District Labour Office / shramevjayate.cg.gov.in","nodalOfficer":"District Labour Officer of respective district","documents":["Labour registration card","Age proof (Aadhaar / birth certificate)","Bank passbook","Contribution record from Board"],"amendments":[],"calculatorType":null,"source":"https://asanify.com/blog/labour-laws/labour-laws-in-chhattisgarh-2025-minimum-wages-working-hours-benefits/","sourceLabel":"Asanify Labour Laws CG 2025","policyRef":"CG Building & Other Construction Workers Welfare Board"},{"id":23,"title":"Nirman Shramik Mrityu Evam Divyang Sahayata","sector":"Labour & Workforce","department":"Labour Dept. — Construction Workers Board","beneficiary":["Construction Worker","Labourer"],"status":"Active","tag":null,"effectiveFrom":"Ongoing","validTill":"Ongoing","summary":"Compensation for accidental death (₹2 lakh) or disability (₹1 lakh) for registered construction workers.","keyBenefits":["Death compensation: ₹2 lakh to family","Disability compensation: ₹1 lakh","Requires prior Board registration","Accidental only"],"eligibility":"Construction workers registered with CG Building & Other Construction Workers Welfare Board","applyAt":"District Labour Office","nodalOfficer":"District Labour Officer of respective district","documents":["Labour registration card","FIR / accident report","Death certificate or disability certificate","Nominee / family member details","Bank passbook"],"amendments":[],"calculatorType":null,"source":"https://asanify.com/blog/labour-laws/labour-laws-in-chhattisgarh-2025-minimum-wages-working-hours-benefits/","sourceLabel":"Asanify Labour Laws CG 2025","policyRef":"CG Building & Other Construction Workers Welfare Board"},{"id":24,"title":"Mukhyamantri Shramik Siyan Sahayata Yojana","sector":"Labour & Workforce","department":"Labour Department","beneficiary":["Construction Worker","Labourer"],"status":"Active","tag":null,"effectiveFrom":"2025","validTill":"Ongoing","summary":"One-time ₹20,000 financial assistance for registered construction workers aged 60+.","keyBenefits":["One-time payment: ₹20,000","For registered workers aged 60+","Separate from monthly pension","Apply online via Labour portal"],"eligibility":"Registered construction workers aged 60+ with completed minimum contribution period","applyAt":"shramevjayate.cg.gov.in / District Labour Office","nodalOfficer":"District Labour Officer","documents":["Labour registration card","Age proof","Bank passbook","Application form from Labour Department"],"amendments":[],"calculatorType":null,"source":"https://pmujjwalayojana.in/chhattisgarh/","sourceLabel":"Sarkari Yojana CG (2025)","policyRef":"Mukhyamantri Shramik Siyan Sahayata Yojana"},{"id":25,"title":"Sister Maternity Assistance Scheme","sector":"Labour & Workforce","department":"Labour Dept. — Construction Workers Board","beneficiary":["Women Labour","Construction Worker"],"status":"Active","tag":null,"effectiveFrom":"Ongoing","validTill":"Ongoing","summary":"Maternity cash assistance to women construction workers and wives of registered male construction workers.","keyBenefits":["Cash maternity benefit for registered women workers","Covers wives of registered male workers too","Via CG Construction Workers Welfare Board","Also covers cleaning, contract, domestic workers"],"eligibility":"Women registered with CG Building & Other Construction Workers Welfare Board, or wives of registered male workers","applyAt":"District Labour Office","nodalOfficer":"District Labour Officer","documents":["Labour registration card","Medical certificate of pregnancy / delivery","Hospital discharge summary","Bank passbook","Nominee details"],"amendments":[],"calculatorType":null,"source":"https://bastar.gov.in/en/labour-department/","sourceLabel":"District Bastar Labour Dept (official)","policyRef":"CG Building & Other Construction Workers Welfare Board"},{"id":26,"title":"Udyam Kranti Yojana — Youth Self-Employment Loan","sector":"MSME","department":"Dept. of Commerce & Industry","beneficiary":["Youth Entrepreneur","Women Entrepreneur"],"status":"Active","tag":null,"effectiveFrom":"2024","validTill":"Ongoing","summary":"50% loan subsidy to encourage youth self-employment. Interest-free component on eligible loan portion.","keyBenefits":["50% subsidy on self-employment loans","Interest-free component on eligible portion","Targets youth first-generation entrepreneurs","Part of IDP 2024–30 ecosystem"],"eligibility":"Youth of Chhattisgarh starting businesses; CG domicile certificate required","applyAt":"District Industries Centre / Dept. of Commerce & Industry","nodalOfficer":"General Manager, District Industries Centre","documents":["Domicile certificate","Age proof (18-45 years)","Business plan","Bank account details","Aadhaar / PAN"],"amendments":[],"calculatorType":null,"source":"https://cgcompetitionpoint.in/important-schemes-of-chhattisgarh-government-march-2024/","sourceLabel":"CG Competition Point — Govt Schemes 2024","policyRef":"Chhattisgarh Udyam Kranti Yojana"},{"id":27,"title":"Tendupatta MSP — Kendu Leaf Collection","sector":"Agriculture & Farming","department":"Dept. of Forest / Minor Forest Produce","beneficiary":["Tribal Community","Forest Produce Collector"],"status":"Active","tag":"inclusive","effectiveFrom":"2024","validTill":"Ongoing","summary":"MSP of ₹5,500 per standard bag for Tendu leaves. Increased from ₹4,000. Directly benefits tribal forest communities.","keyBenefits":["MSP: ₹5,500 per standard bag","Increased from ₹4,000 earlier","Benefits tribal forest communities","Purchased through Forest Dept."],"eligibility":"Tribal and forest-dwelling communities in CG who collect Tendu leaves","applyAt":"Forest Department / MFP Cooperative of respective area","nodalOfficer":"Divisional Forest Officer of respective forest division","documents":["Jan Aadhar / Aadhaar card","Community membership proof","Bank passbook","Collection record from Van Samiti"],"amendments":[{"date":"2024","note":"MSP increased from ₹4,000 to ₹5,500 per standard bag"}],"calculatorType":null,"source":"https://cgcompetitionpoint.in/important-schemes-of-chhattisgarh-government-march-2024/","sourceLabel":"CG Competition Point — Govt Schemes 2024","policyRef":"Minor Forest Produce MSP Policy"},{"id":28,"title":"Bijli Bill Half Yojana — 50% Electricity Subsidy","sector":"Urban & Rural Welfare","department":"Dept. of Energy","beneficiary":["General Public","Farmer","Women"],"status":"Active","tag":"flagship","effectiveFrom":"2024","validTill":"Ongoing","summary":"50% subsidy on electricity bills up to 400 units/month for 40+ lakh consumers. Free up to 30 units for single-bulb homes.","keyBenefits":["50% subsidy up to 400 units/month","40+ lakh consumers covered","Free electricity up to 30 units for single-bulb households","Auto-applied — no application needed"],"eligibility":"Domestic electricity consumers in CG consuming up to 400 units/month","applyAt":"Automatic — applied via CSPDCL billing","nodalOfficer":"Executive Engineer, CSPDCL of respective district","documents":["No separate application needed — auto-applied"],"amendments":[],"calculatorType":null,"source":"https://cgcompetitionpoint.in/important-schemes-of-chhattisgarh-government-march-2024/","sourceLabel":"CG Competition Point — Govt Schemes 2024","policyRef":"Bijli Bill Half Yojana"},{"id":29,"title":"Mukhyamantri Ucch Shiksha Rin Byaj Anudan — Education Loan Subsidy","sector":"Education & Skill Development","department":"Dept. of Higher Education","beneficiary":["Student","Youth Entrepreneur"],"status":"Active","tag":null,"effectiveFrom":"2025","validTill":"Ongoing","summary":"Interest-free education loans up to ₹4 lakh for CG students in recognised higher education institutions.","keyBenefits":["Loan up to ₹4 lakh interest-free","Government pays interest subsidy","For recognised higher education institutions","Apply online via Higher Education portal"],"eligibility":"CG domicile students in recognised higher education institutions","applyAt":"CG Higher Education portal / Participating banks","nodalOfficer":"Director, Higher Education, Dept. of Higher Education, Raipur","documents":["Aadhaar card","Domicile certificate","College / university admission letter","Bank loan sanction letter","Fee receipts","Academic marksheets"],"amendments":[],"calculatorType":null,"source":"https://pmujjwalayojana.in/chhattisgarh/","sourceLabel":"Sarkari Yojana CG (2025)","policyRef":"Mukhyamantri Ucch Shiksha Rin Byaj Anudan Yojana"},{"id":30,"title":"Tourism Homestay Policy — Bastar & Sarguja","sector":"Tourism","department":"Chhattisgarh Tourism Board","beneficiary":["Tourism Entrepreneur","Local Community"],"status":"Active","tag":"new","effectiveFrom":"2025–26","validTill":"Ongoing","summary":"Incentives for homestay setup in Bastar and Sarguja. Reduced minimum investment threshold for hotels/resorts. Approved via DLTC → CTB pathway.","keyBenefits":["Dedicated homestay incentive for Bastar & Sarguja","Reduced investment threshold for hotels/resorts","Up to 2 applications per district per year via DLTC","Budget allocated in 2025–26"],"eligibility":"Individuals and communities in Bastar and Sarguja divisions setting up homestays","applyAt":"District Level Tourism Committee (DLTC) → Chhattisgarh Tourism Board","nodalOfficer":"CEO, Chhattisgarh Tourism Board, Raipur","documents":["Land ownership / lease documents","Property details","Business plan","NOC from local body","Identity proof","Bank details"],"amendments":[{"date":"2025","note":"New Homestay Policy announced in Budget 2025–26 specifically for Bastar and Sarguja tourism corridors"}],"calculatorType":null,"source":"https://finance.cg.gov.in/budget_doc/2025-2026/Press%20Note/Press%20Note-E.pdf","sourceLabel":"CG Budget 2025–26 Press Note","policyRef":"Tourism Homestay Policy 2025–26"},{"id":31,"title":"Quality Certification Subsidy for MSMEs","sector":"MSME","department":"Dept. of Commerce & Industry","beneficiary":["MSME","Entrepreneur"],"status":"Active","tag":null,"effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"50% reimbursement of quality certification expenses (ISO, BIS, FSSAI, etc.) for new and existing MSMEs.","keyBenefits":["50% of certification expenses reimbursed","Covers new and existing MSMEs","ISO, BIS, FSSAI and other recognised bodies","General category entrepreneurs eligible"],"eligibility":"New or existing MSMEs in CG in the general category","applyAt":"District Industries Centre","nodalOfficer":"General Manager, District Industries Centre","documents":["Udyam Registration","Certification invoice from accredited body","Bank payment proof","GSTIN","Certificate copy"],"amendments":[],"calculatorType":null,"source":"https://kipfinancial.com/chhattisgarh-industrial-development-policy-2024-30-2/","sourceLabel":"KIP Financial (IDP 2024–30 cited)","policyRef":"IDP 2024–30"},{"id":32,"title":"Incubator Establishment Grant","sector":"Startup & Innovation","department":"Dept. of Commerce & Industry","beneficiary":["Educational Institution","Startup Ecosystem"],"status":"Active","tag":"new","effectiveFrom":"01 Nov 2024","validTill":"31 Mar 2030","summary":"40% of establishment expenses (max ₹40 lakh) for incubators set up during policy tenure. Annual ops grant: ₹5 lakh at divisional HQ, ₹3 lakh elsewhere.","keyBenefits":["40% establishment expenses (max ₹40 lakh)","Annual ops grant at divisional HQ: ₹5 lakh/year for 5 years","Annual ops grant at other districts: ₹3 lakh/year for 5 years","Targets technical institutions"],"eligibility":"Incubators in technical institutions established during IDP 2024–30 tenure","applyAt":"Dept. of Commerce & Industry, Raipur","nodalOfficer":"Commissioner, Dept. of Commerce & Industry, Raipur","documents":["Institution registration proof","Incubator setup plan","Cost estimates / project report","Space allocation details","Management committee details"],"amendments":[],"calculatorType":null,"source":"https://www.startupindia.gov.in/content/sih/en/state-startup-policies/Chhattisgarh-state-policy.html","sourceLabel":"Startup India — CG State Policy","policyRef":"IDP 2024–30"}];
+
+const TAG_META = {
+  flagship:{label:'Flagship',cls:'t-flagship'},
+  new:{label:'New 2025',cls:'t-new'},
+  inclusive:{label:'Inclusive',cls:'t-inclusive'},
+  employment:{label:'Employment',cls:'t-employment'},
+  agro:{label:'Agro',cls:'t-agro'},
+  land:{label:'Land',cls:'t-land'}
+};
+
+let openId=null, activeTag=null;
+
+// ── INIT ──
+function init(){
+  const sS=document.getElementById('qSector');
+  const bS=document.getElementById('qBen');
+  const tF=document.getElementById('tagFilters');
+
+  [...new Set(P.map(p=>p.sector))].sort().forEach(s=>{
+    const o=document.createElement('option');o.value=s;o.textContent=s;sS.appendChild(o);
+  });
+  [...new Set(P.flatMap(p=>p.beneficiary))].sort().forEach(b=>{
+    const o=document.createElement('option');o.value=b;o.textContent=b;bS.appendChild(o);
+  });
+
+  Object.entries(TAG_META).forEach(([k,m])=>{
+    const b=document.createElement('button');
+    b.className='tf';b.textContent=m.label;b.dataset.tag=k;
+    b.onclick=()=>{activeTag=activeTag===k?null:k;document.querySelectorAll('.tf').forEach(x=>x.classList.remove('on'));if(activeTag)b.classList.add('on');applyFilters();};
+    tF.appendChild(b);
+  });
+
+  document.getElementById('qSearch').addEventListener('input',applyFilters);
+  document.getElementById('sTot').textContent=P.length;
+  applyFilters();
+}
+
+// ── FILTERS ──
+function applyFilters(){
+  const s=document.getElementById('qSector').value;
+  const b=document.getElementById('qBen').value;
+  const q=document.getElementById('qSearch').value.toLowerCase().trim();
+  const res=P.filter(p=>{
+    if(s&&p.sector!==s)return false;
+    if(b&&!p.beneficiary.includes(b))return false;
+    if(activeTag&&p.tag!==activeTag)return false;
+    if(q){
+      const hay=[p.title,p.summary,p.sector,p.department,p.policyRef,...p.beneficiary,...p.keyBenefits,p.eligibility,...(p.documents||[])].join(' ').toLowerCase();
+      if(!hay.includes(q))return false;
+    }
+    return true;
+  });
+  document.getElementById('rCount').textContent=res.length+' of '+P.length;
+  renderCards(res);
+}
+
+// ── RENDER ──
+function renderCards(list){
+  const box=document.getElementById('container');
+  if(!list.length){box.innerHTML='<div class="nores"><div class="nores-t">No matching policies</div><p>Try different keywords or clear filters.</p></div>';return;}
+
+  const grouped={};
+  list.forEach(p=>{if(!grouped[p.sector])grouped[p.sector]=[];grouped[p.sector].push(p);});
+
+  let html='';
+  Object.keys(grouped).sort().forEach(sec=>{
+    const cnt=grouped[sec].length;
+    html+=`<div class="sec-h">${sec}<span class="sec-count">${cnt}</span></div>`;
+    grouped[sec].forEach(p=>{
+      const isOpen=openId===p.id;
+      const benTags=p.beneficiary.map(b=>`<span class="tag t-ben">${b}</span>`).join('');
+      const tagBadge=p.tag&&TAG_META[p.tag]?`<span class="tag ${TAG_META[p.tag].cls}">${TAG_META[p.tag].label}</span>`:'';
+      const amendBadge=p.amendments&&p.amendments.length?`<span class="tag t-amended">Amended</span>`:'';
+      const calcBtn=p.calculatorType?`<button class="btn-calc" onclick="event.stopPropagation();openCalc(${p.id})">⚡ Calculator</button>`:'';
+
+      let bodyHtml='';
+      if(isOpen){
+        // Benefits
+        const bens=p.keyBenefits.map(b=>`<div class="ben-item"><div class="ben-dot"></div><span>${b}</span></div>`).join('');
+        // Details grid
+        const dets=[
+          ['Effective From',p.effectiveFrom],
+          ['Valid Till',p.validTill],
+          ['Eligibility',p.eligibility],
+          ['Apply At',p.applyAt],
+          ['Department',p.department]
+        ].map(([k,v])=>`<div class="det-item"><div class="det-k">${k}</div><div class="det-v">${v}</div></div>`).join('');
+        // Documents
+        const docs=(p.documents||[]).map(d=>`<div class="doc-chip">${d}</div>`).join('');
+        // Amendments
+        const amdHtml=p.amendments&&p.amendments.length
+          ?p.amendments.map(a=>`<div class="amend-item"><span class="amend-date">${a.date}</span><span class="amend-note">${a.note}</span></div>`).join('')
+          :'<span style="font-size:13px;color:var(--ink3)">No amendments recorded</span>';
+        // Nodal
+        const nodal=p.nodalOfficer||'Contact District Industries Centre';
+
+        bodyHtml=`<div class="pc-body-inner">
+          <div class="benefits"><div class="section-title">Key Benefits</div>${bens}</div>
+          <div class="det-grid">${dets}</div>
+          <div class="nodal-bar"><div class="nodal-icon">👤</div><div><div class="nodal-label">Nodal Officer / Apply At</div><div class="nodal-val">${nodal}</div></div></div>
+          ${docs?`<div style="margin-bottom:14px"><div class="section-title">Documents Required</div><div class="docs-list">${docs}</div></div>`:''}
+          <div style="margin-bottom:14px"><div class="section-title">Amendment Log</div><div class="amend-list">${amdHtml}</div></div>
+          <div class="src-bar">
+            <span class="src-lbl">Source</span>
+            <a class="src-a" href="${p.source}" target="_blank" rel="noopener">↗ ${p.sourceLabel}</a>
+            <span class="src-ref">Ref: ${p.policyRef}</span>
+          </div>
+          <button class="report-btn" onclick="reportIssue(${p.id})">⚑ Report an issue with this policy</button>
+        </div>`;
+      }
+
+      html+=`<article class="pc${isOpen?' open':''}" id="pc${p.id}">
+        <div class="pc-hdr" onclick="toggle(${p.id})">
+          <div class="pc-num">${String(p.id).padStart(2,'0')}</div>
+          <div class="pc-main">
+            <div class="pc-tags"><span class="tag t-sec">${p.sector}</span><span class="tag t-act">${p.status}</span>${tagBadge}${amendBadge}${benTags}</div>
+            <div class="pc-title">${p.title}</div>
+            <div class="pc-sum">${p.summary}</div>
+            <div class="pc-dept">${p.department}</div>
+          </div>
+          <div class="pc-actions">${calcBtn}<div class="pc-arr">▼</div></div>
+        </div>
+        <div class="pc-body">${bodyHtml}</div>
+      </article>`;
+    });
+  });
+  box.innerHTML=html;
+}
+
+function toggle(id){
+  openId=openId===id?null:id;
+  applyFilters();
+  if(openId){setTimeout(()=>{const el=document.getElementById('pc'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},40);}
+}
+
+// ── WIZARD ──
+const WIZ_STEPS=[
+  {q:'Who are you?',hint:'Select your primary role',key:'role',opts:[
+    {icon:'🌾',label:'Farmer / Agricultural Worker',val:'farmer'},
+    {icon:'🏭',label:'Entrepreneur / Industrialist',val:'entrepreneur'},
+    {icon:'🚀',label:'Startup Founder',val:'startup'},
+    {icon:'👷',label:'Construction / Labour Worker',val:'labour'},
+    {icon:'👩',label:'Woman seeking support',val:'women'},
+    {icon:'🎓',label:'Student',val:'student'},
+    {icon:'🌿',label:'Tribal / Forest Community',val:'tribal'}
+  ]},
+  {q:'What do you need?',hint:'Select what matters most to you',key:'need',opts:[
+    {icon:'💰',label:'Financial Subsidy / Grant',val:'subsidy'},
+    {icon:'🏠',label:'Land / Infrastructure',val:'land'},
+    {icon:'📋',label:'Loan Support',val:'loan'},
+    {icon:'💼',label:'Employment Benefits',val:'employment'},
+    {icon:'📦',label:'Market / Procurement Support',val:'market'}
+  ]}
+];
+
+let wizStep=0,wizAnswers={};
+
+function openWizard(){
+  wizStep=0;wizAnswers={};
+  document.getElementById('wizOverlay').classList.add('open');
+  renderWizStep();
+}
+function closeWizard(){document.getElementById('wizOverlay').classList.remove('open');}
+
+function renderWizStep(){
+  const body=document.getElementById('wizBody');
+  const footer=document.getElementById('wizFooter');
+  const bar=document.getElementById('wizBar');
+
+  if(wizStep>=WIZ_STEPS.length){
+    // Show results
+    bar.style.width='100%';
+    const matches=matchPolicies(wizAnswers);
+    body.innerHTML=`<div class="wiz-results-title">Policies that match your profile (${matches.length})</div>`+
+      (matches.length?matches.map(p=>`<div class="wiz-match" onclick="closeWizard();scrollToPolicy(${p.id})"><div class="wiz-match-title">${p.title}</div><div class="wiz-match-sec">${p.sector}</div></div>`).join('')
+      :'<div class="wiz-none">No exact match — try browsing all policies below.</div>');
+    footer.innerHTML=`<button class="btn-sec" onclick="closeWizard()">Browse all policies</button>`;
+    return;
+  }
+
+  const step=WIZ_STEPS[wizStep];
+  bar.style.width=((wizStep/WIZ_STEPS.length)*100)+'%';
+  body.innerHTML=`<div class="wiz-q">${step.q}</div><div class="wiz-hint">${step.hint}</div>
+    <div class="wiz-options">${step.opts.map(o=>`
+      <div class="wiz-opt${wizAnswers[step.key]===o.val?' selected':''}" onclick="selectWizOpt('${step.key}','${o.val}',this)">
+        <span class="wiz-opt-icon">${o.icon}</span><span>${o.label}</span>
+      </div>`).join('')}</div>`;
+  footer.innerHTML=`
+    ${wizStep>0?'<button class="btn-sec" onclick="wizBack()">← Back</button>':'<div></div>'}
+    <button class="btn-prim" id="wizNext" onclick="wizNext()" ${!wizAnswers[step.key]?'disabled':''}>
+      ${wizStep===WIZ_STEPS.length-1?'Show my policies →':'Next →'}
+    </button>`;
+}
+
+function selectWizOpt(key,val,el){
+  wizAnswers[key]=val;
+  document.querySelectorAll('.wiz-opt').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('wizNext').disabled=false;
+}
+function wizNext(){wizStep++;renderWizStep();}
+function wizBack(){wizStep--;renderWizStep();}
+
+function matchPolicies(a){
+  const roleMap={
+    farmer:['Farmer','Cattle Rearer','Women SHG','Landless Agricultural Labourer','Forest Produce Collector','Tribal Community'],
+    entrepreneur:['Entrepreneur','Large Industry','MSME'],
+    startup:['Startup Founder','Youth Entrepreneur'],
+    labour:['Construction Worker','Labourer','Women Labour'],
+    women:['Women','Women Entrepreneur','Women SHG','Women Labour'],
+    student:['Student'],
+    tribal:['Tribal Community','Forest Produce Collector']
+  };
+  const needMap={
+    subsidy:['subsidy','exemption','reimbursement','bonus'],
+    land:['land','premium'],
+    loan:['loan','credit','fund'],
+    employment:['employment','salary','pension','maternity'],
+    market:['mandi','msp','procurement','market']
+  };
+  const roleBens=roleMap[a.role]||[];
+  const needKw=needMap[a.need]||[];
+
+  return P.filter(p=>{
+    const benMatch=p.beneficiary.some(b=>roleBens.includes(b));
+    const needMatch=!needKw.length||needKw.some(k=>(p.title+p.summary+p.keyBenefits.join(' ')).toLowerCase().includes(k));
+    return benMatch&&needMatch;
+  }).slice(0,8);
+}
+
+function scrollToPolicy(id){
+  openId=id;applyFilters();
+  setTimeout(()=>{const el=document.getElementById('pc'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},100);
+}
+
+// ── CALCULATOR ──
+const CALCS={
+  sgst:{
+    title:'Net SGST Reimbursement Calculator',
+    fields:[
+      {id:'fci',label:'Fixed Capital Investment (₹ crore)',placeholder:'e.g. 10'},
+      {id:'sgst',label:'Annual Net SGST paid (₹ crore)',placeholder:'e.g. 0.8'}
+    ],
+    compute(v){
+      const fci=parseFloat(v.fci)||0,sgst=parseFloat(v.sgst)||0;
+      const cap=fci*1.5,annual=sgst,total10=Math.min(annual*10,cap);
+      return {val:'₹'+total10.toFixed(2)+' crore',note:`10-year total (capped at 150% of FCI = ₹${cap.toFixed(2)} crore). Annual: ₹${annual.toFixed(2)} crore.`};
+    }
+  },
+  marginal:{
+    title:'Marginal Money Subsidy Calculator',
+    fields:[
+      {id:'inv',label:'Capital Investment (₹ crore)',placeholder:'e.g. 2'}
+    ],
+    compute(v){
+      const inv=Math.min(parseFloat(v.inv)||0,10);
+      const sub=Math.min(inv*0.25,1);
+      return {val:'₹'+sub.toFixed(2)+' crore',note:`25% of ₹${inv.toFixed(2)} crore investment (capped at ₹1 crore max subsidy).`};
+    }
+  }
+};
+
+function openCalc(id){
+  const p=P.find(x=>x.id===id);
+  if(!p||!p.calculatorType)return;
+  const cfg=CALCS[p.calculatorType];
+  document.getElementById('calcTitle').textContent=cfg.title;
+  const fields=cfg.fields.map(f=>`
+    <div class="calc-field">
+      <div class="calc-label">${f.label}</div>
+      <input class="calc-input" id="ci_${f.id}" type="number" min="0" step="0.01" placeholder="${f.placeholder}" oninput="runCalc('${p.calculatorType}')"/>
+    </div>`).join('');
+  document.getElementById('calcBody').innerHTML=fields+`<div id="calcResult" class="calc-result" style="display:none">
+    <div class="calc-result-label">Estimated Benefit</div>
+    <div class="calc-result-val" id="crVal"></div>
+    <div class="calc-result-note" id="crNote"></div>
+  </div>`;
+  document.getElementById('calcOverlay').classList.add('open');
+}
+function closeCalc(){document.getElementById('calcOverlay').classList.remove('open');}
+
+function runCalc(type){
+  const cfg=CALCS[type];
+  const vals={};
+  cfg.fields.forEach(f=>{vals[f.id]=document.getElementById('ci_'+f.id)?.value||'0';});
+  const hasVal=Object.values(vals).some(v=>parseFloat(v)>0);
+  const res=document.getElementById('calcResult');
+  if(!hasVal){res.style.display='none';return;}
+  const out=cfg.compute(vals);
+  document.getElementById('crVal').textContent=out.val;
+  document.getElementById('crNote').textContent=out.note;
+  res.style.display='block';
+}
+
+// ── REPORT ──
+function reportIssue(id){
+  const p=P.find(x=>x.id===id);
+  const sub=encodeURIComponent(`[CG Policy Portal] Issue Report: ${p.title}`);
+  const body=encodeURIComponent(`Policy: ${p.title}\nPolicy Ref: ${p.policyRef}\nIssue:\n\n[Please describe the issue here]`);
+  window.open(`mailto:feedback@cgpolicyportal.in?subject=${sub}&body=${body}`,'_blank');
+}
+
+init();
+</script>
+</body>
+</html>
