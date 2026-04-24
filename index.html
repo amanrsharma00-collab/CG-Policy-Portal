@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CG Gov Portal — Government of Chhattisgarh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1a3a2a;
+  --forest-mid:#2d5a3d;
+  --forest-lt:#3d7a52;
+  --cream:#f7f3ec;
+  --cream-dk:#ede8de;
+  --terra:#c4521a;
+  --terra-lt:#f5ede6;
+  --terra-dk:#8f3a10;
+  --gold:#b8860b;
+  --gold-lt:#fdf8e8;
+  --ink:#1c1c1c;
+  --ink2:#4a4a4a;
+  --ink3:#888;
+  --surf:#fff;
+  --bdr:#ddd8ce;
+  --bdr2:#c8c2b4;
+  --tribal:#5c3317;
+  --tribal-lt:#fdf5ee;
+  --tribal-mid:#8b4513;
+  --blue:#1a3a6b;
+  --blue-lt:#eef3fa;
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Source Sans 3",sans-serif;font-size:16px;line-height:1.6;color:var(--ink);background:var(--cream);overflow-x:hidden}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--forest);color:rgba(255,255,255,.55);font-size:12px;padding:6px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar a{color:rgba(255,255,255,.5);text-decoration:none}
+.topbar a:hover{color:#fff}
+.topbar-right{display:flex;gap:16px}
+
+/* ── HEADER ── */
+.hdr{background:var(--forest);border-bottom:3px solid var(--terra);position:sticky;top:0;z-index:400}
+.hdr-i{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hdr-brand{display:flex;align-items:center;gap:14px}
+.hdr-emblem{width:48px;height:48px;background:var(--terra);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-emblem svg{width:28px;height:28px;fill:#fff;opacity:.9}
+.hdr-names{display:flex;flex-direction:column}
+.hdr-name{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:#fff;line-height:1.2}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.hdr-nav{display:flex;gap:4px}
+.hdr-nav a{font-size:13px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;padding:6px 12px;border-radius:var(--r4);transition:all .15s}
+.hdr-nav a:hover,.hdr-nav a.active{color:#fff;background:rgba(255,255,255,.12)}
+.hdr-search{display:flex;gap:8px;align-items:center}
+.hdr-search input{padding:8px 14px;font-size:13px;font-family:"Source Sans 3",sans-serif;border:none;border-radius:var(--r4);background:rgba(255,255,255,.12);color:#fff;width:220px;transition:all .2s}
+.hdr-search input::placeholder{color:rgba(255,255,255,.4)}
+.hdr-search input:focus{outline:none;background:rgba(255,255,255,.2);width:280px}
+
+/* ── HERO ── */
+.hero{background:var(--forest);padding:56px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(196,82,26,.15) 0%,transparent 60%)}
+.hero-i{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-label::before{content:"";width:24px;height:2px;background:var(--terra)}
+.hero-h{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,52px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:16px;max-width:680px}
+.hero-h em{color:var(--terra);font-style:italic}
+.hero-p{font-size:17px;color:rgba(255,255,255,.6);max-width:560px;margin-bottom:40px;line-height:1.75;font-weight:300}
+
+/* FILTER TABS — the centrepiece */
+.filter-tabs{display:flex;gap:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--r12);overflow:hidden;max-width:640px}
+.ftab{flex:1;padding:18px 20px;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.6);font-family:"Source Sans 3",sans-serif;font-size:15px;font-weight:500;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:6px;border-right:1px solid rgba(255,255,255,.1)}
+.ftab:last-child{border-right:none}
+.ftab:hover{background:rgba(255,255,255,.1);color:#fff}
+.ftab.active{background:var(--terra);color:#fff}
+.ftab-icon{font-size:22px}
+.ftab-label{font-size:14px;font-weight:600}
+.ftab-sub{font-size:11px;opacity:.7}
+
+/* RTE URGENT BANNER */
+.rte-banner{background:linear-gradient(135deg,#7b1f1f,#a83232);border-radius:var(--r8);padding:16px 20px;margin-top:28px;max-width:700px;display:flex;align-items:flex-start;gap:14px;border:1px solid rgba(255,255,255,.15)}
+.rte-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.rte-text strong{font-size:14px;color:#fff;display:block;margin-bottom:3px}
+.rte-text p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5}
+.rte-btn{margin-top:8px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;text-decoration:none;border:1px solid rgba(255,255,255,.3)}
+.rte-btn:hover{background:rgba(255,255,255,.3)}
+
+/* ── STATS STRIP ── */
+.stats-strip{background:var(--forest-mid);padding:16px 24px}
+.stats-i{max-width:1240px;margin:0 auto;display:flex;gap:32px;flex-wrap:wrap;align-items:center}
+.stat{display:flex;flex-direction:column}
+.stat-n{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:#fff;line-height:1}
+.stat-l{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;letter-spacing:.04em}
+.stats-div{width:1px;height:32px;background:rgba(255,255,255,.15)}
+
+/* ── MAIN CONTENT ── */
+.main{max-width:1240px;margin:0 auto;padding:36px 24px 80px}
+
+/* SECTION */
+.section{display:none}
+.section.active{display:block}
+
+/* SECTION HEADER */
+.sec-header{margin-bottom:28px}
+.sec-eyebrow{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-eyebrow::before{content:"";width:20px;height:2px;background:var(--terra)}
+.sec-title{font-family:"Playfair Display",serif;font-size:28px;font-weight:700;color:var(--forest);margin-bottom:8px}
+.sec-desc{font-size:15px;color:var(--ink2);max-width:640px;line-height:1.7}
+
+/* SUBSECTION */
+.subsec{margin-bottom:32px}
+.subsec-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);padding:12px 0 10px;border-bottom:1px solid var(--bdr);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.subsec-title::before{content:"";width:3px;height:14px;background:var(--terra);border-radius:2px;flex-shrink:0}
+.subsec-count{font-size:11px;background:var(--cream-dk);color:var(--ink3);padding:2px 8px;border-radius:12px}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card-grid.wide{grid-template-columns:1fr}
+
+/* SCHEME CARD */
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r12);overflow:hidden;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.card:hover{border-color:var(--bdr2);box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.card.open{border-color:var(--forest-lt);box-shadow:0 0 0 1.5px var(--forest-lt)}
+.card-hdr{padding:16px 18px;display:flex;align-items:flex-start;gap:12px}
+.card-hdr:hover{background:#fafaf8}
+.card-icon{width:38px;height:38px;border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-green{background:var(--forest);color:#fff}
+.ci-terra{background:var(--terra-lt);color:var(--terra-dk)}
+.ci-tribal{background:var(--tribal-lt);color:var(--tribal)}
+.ci-blue{background:var(--blue-lt);color:var(--blue)}
+.ci-gold{background:var(--gold-lt);color:var(--gold)}
+.card-meta{flex:1;min-width:0}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px}
+.tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.t-people{background:#e8f4e8;color:#1a5c1a}
+.t-tribal{background:var(--tribal-lt);color:var(--tribal)}
+.t-critical{background:#fff0e6;color:#8f3a10;border:1px solid #f0c090}
+.t-company{background:var(--blue-lt);color:var(--blue)}
+.t-district{background:var(--gold-lt);color:var(--gold)}
+.t-health{background:#e8f5f5;color:#1a5c5c}
+.t-education{background:#e8eaf5;color:#2a2a8f}
+.t-pvtg{background:#3d0000;color:#ffb3b3}
+.card-title{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:3px}
+.card-dept{font-size:12px;color:var(--ink3)}
+.card-arr{color:var(--ink3);font-size:12px;flex-shrink:0;padding-top:2px;transition:transform .2s}
+.card.open .card-arr{transform:rotate(180deg);color:var(--terra)}
+.card-sum{font-size:13px;color:var(--ink2);padding:0 18px 14px 68px;line-height:1.6}
+
+/* CARD BODY */
+.card-body{display:none;border-top:1px solid var(--bdr);background:#fafaf8}
+.card.open .card-body{display:block}
+.card-body-inner{padding:18px 18px 18px 68px}
+.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:14px}
+.cb-item{background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);padding:9px 12px}
+.cb-k{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:3px}
+.cb-v{font-size:13px;font-weight:500;color:var(--ink);line-height:1.45}
+.cb-benefits{margin-bottom:14px}
+.cb-ben-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:7px}
+.cb-ben-item{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--ink);margin-bottom:4px}
+.cb-dot{width:5px;height:5px;background:var(--terra);border-radius:50%;flex-shrink:0;margin-top:6px}
+.docs-wrap{margin-bottom:14px}
+.docs-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.doc-chip{font-size:12px;background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);padding:3px 10px;color:var(--ink2)}
+.nodal-bar{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#fff;border:1px solid var(--bdr);border-radius:var(--r4);margin-bottom:12px}
+.nodal-txt .nl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:2px}
+.nodal-txt .nv{font-size:13px;font-weight:500;color:var(--ink)}
+.apply-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.apply-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--terra);color:#fff;border:none;border-radius:var(--r8);font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer;transition:background .15s}
+.apply-btn:hover{background:var(--terra-dk)}
+.src-link{font-size:12px;color:var(--blue);text-decoration:none}
+.src-link:hover{text-decoration:underline}
+
+/* TRIBAL HERO SECTION */
+.tribal-hero{background:linear-gradient(135deg,var(--tribal) 0%,#7a3010 60%,#5c2a0e 100%);border-radius:var(--r16);padding:32px 28px;margin-bottom:28px;position:relative;overflow:hidden}
+.tribal-hero::before{content:"";position:absolute;right:-20px;top:-20px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%)}
+.th-label{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,200,150,.8);margin-bottom:10px}
+.th-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:10px}
+.th-desc{font-size:14px;color:rgba(255,255,255,.7);max-width:560px;line-height:1.7;margin-bottom:20px}
+.th-stats{display:flex;gap:24px;flex-wrap:wrap}
+.th-stat-n{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;color:#fff;line-height:1}
+.th-stat-l{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+
+/* PVTG CALLOUT */
+.pvtg-callout{background:linear-gradient(135deg,#1a0a00,#3d1a08);border:1px solid rgba(255,150,50,.2);border-radius:var(--r12);padding:20px 22px;margin-bottom:20px;display:flex;align-items:flex-start;gap:14px}
+.pvtg-icon{font-size:26px;flex-shrink:0}
+.pvtg-text strong{font-size:14px;color:#ffd4a0;display:block;margin-bottom:5px}
+.pvtg-text p{font-size:13px;color:rgba(255,200,150,.75);line-height:1.6}
+.pvtg-communities{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pvtg-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:rgba(255,220,180,.9);border:1px solid rgba(255,255,255,.15)}
+
+/* FRA ALERT */
+.fra-alert{background:linear-gradient(135deg,#0a2a1a,#1a4a2a);border:1px solid rgba(100,200,100,.2);border-radius:var(--r12);padding:20px 22px;margin-bottom:20px;display:flex;gap:14px}
+.fra-icon{font-size:26px;flex-shrink:0}
+.fra-text strong{font-size:14px;color:#a0ffc0;display:block;margin-bottom:5px}
+.fra-text p{font-size:13px;color:rgba(160,255,180,.7);line-height:1.6}
+
+/* RTE SECTION CALLOUT */
+.rte-section{background:linear-gradient(135deg,#2a0000,#5c1010);border-radius:var(--r12);padding:22px 24px;margin-bottom:22px;border:1px solid rgba(255,100,100,.15)}
+.rte-sec-title{font-family:"Playfair Display",serif;font-size:18px;color:#ffcccc;margin-bottom:8px}
+.rte-sec-p{font-size:13px;color:rgba(255,200,200,.7);line-height:1.6;margin-bottom:14px}
+.rte-sec-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--terra);color:#fff;border-radius:var(--r8);font-size:13px;font-weight:600;text-decoration:none}
+
+/* DISTRICT GRID */
+.district-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.district-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r8);padding:14px 16px;cursor:pointer;transition:all .15s;text-align:center}
+.district-card:hover{border-color:var(--terra);background:var(--terra-lt)}
+.dc-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.dc-type{font-size:11px;color:var(--ink3)}
+.dc-type.tribal{color:var(--tribal-mid);font-weight:600}
+
+/* WIZARD */
+.wiz-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:600;align-items:center;justify-content:center;padding:20px}
+.wiz-overlay.open{display:flex}
+.wiz-box{background:#fff;border-radius:var(--r16);width:100%;max-width:540px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.wiz-hdr{background:var(--forest);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.wiz-title{font-family:"Playfair Display",serif;font-size:20px;color:#fff}
+.wiz-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:22px;cursor:pointer;line-height:1}
+.wiz-close:hover{color:#fff}
+.wiz-prog{height:3px;background:#ddd}
+.wiz-bar{height:3px;background:var(--terra);transition:width .3s}
+.wiz-body{padding:28px 24px}
+.wiz-q{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.wiz-hint{font-size:13px;color:var(--ink3);margin-bottom:20px}
+.wiz-opts{display:flex;flex-direction:column;gap:8px}
+.wiz-opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1.5px solid var(--bdr);border-radius:var(--r8);cursor:pointer;transition:all .15s;font-size:14px;font-weight:500;color:var(--ink)}
+.wiz-opt:hover{border-color:var(--terra);background:var(--terra-lt)}
+.wiz-opt.sel{border-color:var(--terra);background:var(--terra-lt);color:var(--terra-dk)}
+.wiz-opt-icon{font-size:20px}
+.wiz-foot{padding:0 24px 24px;display:flex;justify-content:flex-end;gap:10px}
+.wiz-results{padding:0 24px 24px}
+.wiz-res-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:12px}
+.wiz-match{padding:12px 14px;border:1px solid var(--bdr);border-radius:var(--r8);margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.wiz-match:hover{border-color:var(--terra)}
+.wiz-match-t{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.wiz-match-s{font-size:12px;color:var(--ink3)}
+.btn-prim{padding:10px 22px;background:var(--terra);color:#fff;border:none;border-radius:var(--r8);font-family:"Source Sans 3",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-prim:hover{background:var(--terra-dk)}
+.btn-prim:disabled{opacity:.35;cursor:not-allowed}
+.btn-sec{padding:10px 18px;background:#fff;border:1.5px solid var(--bdr);color:var(--ink2);border-radius:var(--r8);font-family:"Source Sans 3",sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.btn-sec:hover{border-color:var(--bdr2)}
+.wiz-none{text-align:center;padding:20px;color:var(--ink3);font-size:14px}
+
+/* GLOBAL SEARCH */
+.gsearch{background:var(--surf);border-bottom:1px solid var(--bdr);padding:12px 24px}
+.gsearch-i{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.gsearch-input{flex:1;padding:10px 16px;font-size:14px;font-family:"Source Sans 3",sans-serif;border:1.5px solid var(--bdr);border-radius:var(--r8);color:var(--ink);background:#fafaf8}
+.gsearch-input:focus{outline:none;border-color:var(--forest-lt)}
+.gsearch-count{font-size:13px;color:var(--ink3);white-space:nowrap}
+.wiz-trigger{padding:10px 18px;background:var(--forest);color:#fff;border:none;border-radius:var(--r8);font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s;display:flex;align-items:center;gap:6px}
+.wiz-trigger:hover{background:var(--forest-mid)}
+
+/* FOOTER */
+footer{background:var(--forest);color:rgba(255,255,255,.4);font-size:12px;padding:32px 24px;text-align:center;line-height:2}
+footer strong{color:rgba(255,255,255,.75)}
+footer a{color:rgba(255,255,255,.4)}
+.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px}
+.footer-links a:hover{color:#fff}
+
+/* NO RESULTS */
+.nores{text-align:center;padding:48px 20px;color:var(--ink3)}
+.nores-t{font-family:"Playfair Display",serif;font-size:20px;color:var(--ink2);margin-bottom:6px}
+
+/* UTILITIES */
+.hidden{display:none}
+
+@media(max-width:768px){
+  .topbar{display:none}
+  .hdr-nav{display:none}
+  .hdr-search{display:none}
+  .hdr-i{padding:12px 16px}
+  .hero{padding:28px 16px 36px}
+  .filter-tabs{flex-direction:column;max-width:100%}
+  .ftab{flex-direction:row;justify-content:flex-start;gap:10px}
+  .fbar-i{padding-left:16px;padding-right:16px;flex-direction:column}
+  .main{padding:24px 16px 60px}
+  .stats-i{gap:16px}
+  .card-grid{grid-template-columns:1fr}
+  .card-body-inner{padding:14px}
+  .cb-grid{grid-template-columns:1fr}
+  .gsearch-i{flex-wrap:wrap}
+  .wiz-box{max-width:100%;margin:0 8px}
+  .district-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .tribal-hero{padding:24px 18px}
+  .pvtg-callout{flex-direction:column}
+  .apply-bar{flex-direction:column;align-items:flex-start}
+  .rte-banner{flex-direction:column}
+  .stats-strip .stats-i{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>Official Government of Chhattisgarh Portal — All services verified</span>
+  <div class="topbar-right">
+    <a href="https://cg.gov.in" target="_blank">cg.gov.in</a>
+    <a href="https://tribal.cg.gov.in" target="_blank">tribal.cg.gov.in</a>
+    <a href="https://industries.cg.gov.in" target="_blank">industries.cg.gov.in</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-i">
+    <div class="hdr-brand">
+      <div class="hdr-emblem">
+        <svg viewBox="0 0 24 24"><path d="M12 2L3 7v10l9 5 9-5V7L12 2zm0 2.18L19 8v8l-7 3.88L5 16V8l7-3.82z"/></svg>
+      </div>
+      <div class="hdr-names">
+        <div class="hdr-name">CG Citizen Portal</div>
+        <div class="hdr-sub">Government of Chhattisgarh</div>
+      </div>
+    </div>
+    <nav class="hdr-nav">
+      <a href="#" class="active" onclick="showSection('people',this)">People</a>
+      <a href="#" onclick="showSection('companies',this)">Companies</a>
+      <a href="#" onclick="showSection('tribal',this)">Tribal</a>
+      <a href="#" onclick="showSection('district',this)">District</a>
+    </nav>
+    <div class="hdr-search">
+      <input type="text" id="hdrSearch" placeholder="Search schemes, services…" oninput="globalSearch(this.value)"/>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-i">
+    <div class="hero-label">One-Stop Government Portal</div>
+    <h1 class="hero-h">Every service.<br>Every scheme.<br><em>One place.</em></h1>
+    <p class="hero-p">Access all Central and State Government schemes, documents, and services — for citizens, businesses, and communities across Chhattisgarh.</p>
+
+    <div class="filter-tabs" id="heroTabs">
+      <button class="ftab active" onclick="showSection('people',null,'people')" data-sec="people">
+        <span class="ftab-icon">👥</span>
+        <span class="ftab-label">People</span>
+        <span class="ftab-sub">Citizens & Families</span>
+      </button>
+      <button class="ftab" onclick="showSection('companies',null,'companies')" data-sec="companies">
+        <span class="ftab-icon">🏭</span>
+        <span class="ftab-label">Companies</span>
+        <span class="ftab-sub">Businesses & MSMEs</span>
+      </button>
+      <button class="ftab" onclick="showSection('tribal',null,'tribal')" data-sec="tribal">
+        <span class="ftab-icon">🌿</span>
+        <span class="ftab-label">Tribal</span>
+        <span class="ftab-sub">Hidden Entitlements</span>
+      </button>
+      <button class="ftab" onclick="showSection('district',null,'district')" data-sec="district">
+        <span class="ftab-icon">📍</span>
+        <span class="ftab-label">District</span>
+        <span class="ftab-sub">Local Services</span>
+      </button>
+    </div>
+
+    <div class="rte-banner">
+      <div class="rte-icon">🏫</div>
+      <div class="rte-text">
+        <strong>Critical: Free Private School Admission for ST/EWS Children — RTE Act</strong>
+        <p>Every private school in CG must reserve 25% seats for tribal and economically weaker children. This is FREE — zero fees from Class 1 to Class 8. Many seats go unclaimed every year.</p>
+        <a href="https://rte.cg.nic.in" target="_blank" class="rte-btn">↗ Apply at rte.cg.nic.in</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-i">
+    <div class="stat"><div class="stat-n">60+</div><div class="stat-l">Verified Schemes</div></div>
+    <div class="stats-div"></div>
+    <div class="stat"><div class="stat-n">32%</div><div class="stat-l">ST Population in CG</div></div>
+    <div class="stats-div"></div>
+    <div class="stat"><div class="stat-n">85</div><div class="stat-l">Tribal Dev Blocks</div></div>
+    <div class="stats-div"></div>
+    <div class="stat"><div class="stat-n">33</div><div class="stat-l">Districts Covered</div></div>
+    <div class="stats-div"></div>
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">PVTG Communities</div></div>
+  </div>
+</div>
+
+<!-- GLOBAL SEARCH BAR -->
+<div class="gsearch">
+  <div class="gsearch-i">
+    <input type="text" class="gsearch-input" id="mainSearch" placeholder="Search any scheme, benefit, or service across all sections…" oninput="globalSearch(this.value)" autocomplete="off"/>
+    <span class="gsearch-count" id="searchCount"></span>
+    <button class="wiz-trigger" onclick="openWizard()">🎯 Eligibility Finder</button>
+  </div>
+</div>
+
+<!-- WIZARD -->
+<div class="wiz-overlay" id="wizOverlay" onclick="if(event.target===this)closeWizard()">
+  <div class="wiz-box">
+    <div class="wiz-hdr">
+      <div class="wiz-title">Eligibility Finder</div>
+      <button class="wiz-close" onclick="closeWizard()">✕</button>
+    </div>
+    <div class="wiz-prog"><div class="wiz-bar" id="wizBar" style="width:0%"></div></div>
+    <div id="wizContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MAIN SECTIONS -->
+<!-- ═══════════════════════════════════════ -->
+<main class="main">
+
+<!-- ── PEOPLE ── -->
+<div class="section active" id="sec-people">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Filter: People / Citizens</div>
+    <h2 class="sec-title">Government Services for Every Citizen</h2>
+    <p class="sec-desc">From birth certificates to pension — every Central and State Government service a citizen needs across their lifetime.</p>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Central Government Schemes <span class="subsec-count">9</span></div>
+    <div class="card-grid" id="central-schemes"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">CG State Schemes <span class="subsec-count">6</span></div>
+    <div class="card-grid" id="state-schemes"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Document & Identity Services <span class="subsec-count">8</span></div>
+    <div class="card-grid" id="doc-services"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Health & Insurance <span class="subsec-count">4</span></div>
+    <div class="card-grid" id="health-schemes"></div>
+  </div>
+</div>
+
+<!-- ── COMPANIES ── -->
+<div class="section" id="sec-companies">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Filter: Companies / Businesses</div>
+    <h2 class="sec-title">Business Registration, Schemes & Compliance</h2>
+    <p class="sec-desc">Everything an entrepreneur, MSME, or large industry needs — registration, incentives, labour compliance, GST, and tenders.</p>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">CG Industrial Policy 2024–30 <span class="subsec-count">8</span></div>
+    <div class="card-grid" id="idp-schemes"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">CG Startup Policy 2025–30 <span class="subsec-count">5</span></div>
+    <div class="card-grid" id="startup-schemes"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Business Registration & Compliance <span class="subsec-count">6</span></div>
+    <div class="card-grid" id="biz-reg"></div>
+  </div>
+</div>
+
+<!-- ── TRIBAL ── -->
+<div class="section" id="sec-tribal">
+  <div class="tribal-hero">
+    <div class="th-label">Special Module — Chhattisgarh</div>
+    <div class="th-title">Tribal Communities &amp; Hidden Entitlements</div>
+    <div class="th-desc">Chhattisgarh has one of India's largest ST populations — yet most benefits go unclaimed because they are poorly publicised. This section surfaces every entitlement tribal families are legally owed.</div>
+    <div class="th-stats">
+      <div><div class="th-stat-n">32%</div><div class="th-stat-l">ST population in CG</div></div>
+      <div><div class="th-stat-n">85</div><div class="th-stat-l">Tribal dev blocks</div></div>
+      <div><div class="th-stat-n">8</div><div class="th-stat-l">PVTG communities</div></div>
+      <div><div class="th-stat-n">45%</div><div class="th-stat-l">Forest cover</div></div>
+    </div>
+  </div>
+
+  <div class="pvtg-callout">
+    <div class="pvtg-icon">⚠️</div>
+    <div class="pvtg-text">
+      <strong>If you belong to a PVTG community — you have MORE rights than other ST communities</strong>
+      <p>Particularly Vulnerable Tribal Groups in CG have special, additional entitlements beyond regular ST benefits. Most are unclaimed because communities don't know about them.</p>
+      <div class="pvtg-communities">
+        <span class="pvtg-tag">Kamar</span><span class="pvtg-tag">Baiga</span><span class="pvtg-tag">Hill Korwa</span>
+        <span class="pvtg-tag">Abujhmaria</span><span class="pvtg-tag">Birhor</span><span class="pvtg-tag">Pahadi Korba</span>
+        <span class="pvtg-tag">Pando</span><span class="pvtg-tag">Bhunjia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rte-section">
+    <div class="rte-sec-title">🏫 RTE Act — Free Private School Admission (Critical)</div>
+    <p class="rte-sec-p">Every private school in Chhattisgarh must reserve 25% seats for ST/EWS children. FREE education from Class 1 to Class 8. School cannot charge any fees. Government reimburses the school. Applications at rte.cg.nic.in — usually open January to March each year.</p>
+    <a href="https://rte.cg.nic.in" target="_blank" class="rte-sec-btn">↗ Apply at rte.cg.nic.in</a>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Education — Schools &amp; Scholarships (Section 4.2) <span class="subsec-count">10</span></div>
+    <div class="card-grid" id="tribal-edu"></div>
+  </div>
+
+  <div class="fra-alert">
+    <div class="fra-icon">🌳</div>
+    <div class="fra-text">
+      <strong>Forest Rights Act 2006 — Your Land Title is a Legal Right</strong>
+      <p>Every ST family cultivating forest land since before December 2005 has a legal right to a land title (patta). CG has 45% forest cover — yet nearly 50% of FRA claims have been rejected. If your claim was rejected, you can re-file. The portal guides you step by step.</p>
+    </div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Forest Rights &amp; Livelihood (Section 4.3) <span class="subsec-count">8</span></div>
+    <div class="card-grid" id="tribal-forest"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">PVTG — Special Entitlements (Section 4.4) <span class="subsec-count">5</span></div>
+    <div class="card-grid" id="tribal-pvtg"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Health — Tribal Communities <span class="subsec-count">5</span></div>
+    <div class="card-grid" id="tribal-health"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Legal Protection &amp; Rights <span class="subsec-count">4</span></div>
+    <div class="card-grid" id="tribal-legal"></div>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Bastar &amp; Naxal-Affected Districts — Special Schemes <span class="subsec-count">4</span></div>
+    <div class="card-grid" id="bastar-schemes"></div>
+  </div>
+</div>
+
+<!-- ── DISTRICT ── -->
+<div class="section" id="sec-district">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Filter: District</div>
+    <h2 class="sec-title">District-Level Services & Local Schemes</h2>
+    <p class="sec-desc">Collector orders, local schemes, public services, and grievance redressal specific to your district.</p>
+  </div>
+
+  <div class="subsec">
+    <div class="subsec-title">Select Your District</div>
+    <div class="district-grid" id="district-grid"></div>
+  </div>
+
+  <div class="subsec" id="district-info" style="display:none">
+    <div class="subsec-title" id="district-info-title"></div>
+    <div class="card-grid" id="district-cards"></div>
+  </div>
+</div>
+
+</main><!-- /main -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="https://cg.gov.in" target="_blank">cg.gov.in</a>
+    <a href="https://tribal.cg.gov.in" target="_blank">tribal.cg.gov.in</a>
+    <a href="https://industries.cg.gov.in" target="_blank">industries.cg.gov.in</a>
+    <a href="https://invest.cg.gov.in" target="_blank">invest.cg.gov.in</a>
+    <a href="https://rte.cg.nic.in" target="_blank">rte.cg.nic.in</a>
+    <a href="https://scholarships.gov.in" target="_blank">scholarships.gov.in</a>
+  </div>
+  <strong>CG Citizen Portal</strong> — Civic Tech Initiative · Government of Chhattisgarh<br>
+  All data sourced from official government documents. For legally binding information, refer to official notifications.<br>
+  <span style="margin-top:6px;display:block">Public API: /api/schemes.json · Report an issue: feedback@cgportal.in</span>
+</footer>
+
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+const SCHEMES = [
+
+// ── CENTRAL GOVERNMENT ──
+{id:1,section:'people',subsection:'central-schemes',icon:'🏠',iconCls:'ci-green',tags:['t-people'],
+ title:'PM Awas Yojana — Housing for All',dept:'Ministry of Housing & Urban Affairs',
+ summary:'Free/subsidised housing for BPL families. CG has active urban and rural components.',
+ benefits:['Pucca house under PMAY-Gramin or PMAY-Urban','Financial assistance up to ₹1.2 lakh (rural) or subsidy on home loan','Priority for SC/ST and tribal communities'],
+ eligibility:'BPL families without pucca house; ST families get priority',
+ applyAt:'pmayg.nic.in (rural) / pmaymis.gov.in (urban)',
+ nodal:'District Collector / Urban Local Body',
+ docs:['Aadhaar','BPL/Ration Card','Land ownership proof','Bank passbook'],
+ applyLink:'https://pmayg.nic.in',source:'pmayg.nic.in',sourceLabel:'Official PMAY Portal'},
+
+{id:2,section:'people',subsection:'central-schemes',icon:'🌾',iconCls:'ci-green',tags:['t-people'],
+ title:'PM Kisan Samman Nidhi',dept:'Ministry of Agriculture',
+ summary:'₹6,000 per year in 3 instalments directly to farmers\' bank accounts.',
+ benefits:['₹2,000 every 4 months — 3 instalments per year','Direct bank transfer','All landholding farmers eligible'],
+ eligibility:'All farmer families with cultivable land',
+ applyAt:'pmkisan.gov.in — online registration',
+ nodal:'Block Agriculture Officer',
+ docs:['Aadhaar','Land record (Khasra/B1)','Bank passbook','Mobile number'],
+ applyLink:'https://pmkisan.gov.in',source:'pmkisan.gov.in',sourceLabel:'PM Kisan Portal'},
+
+{id:3,section:'people',subsection:'central-schemes',icon:'🏥',iconCls:'ci-blue',tags:['t-people','t-health'],
+ title:'Ayushman Bharat — PM-JAY',dept:'NHA / Ministry of Health',
+ summary:'₹5 lakh annual health insurance per family. Cashless treatment at empanelled hospitals. ST families get priority.',
+ benefits:['₹5 lakh per family per year — cashless','4,500+ empanelled hospitals across India','No premium for BPL families','ST families covered automatically'],
+ eligibility:'BPL families; SECC 2011 listed; ST households',
+ applyAt:'pmjay.gov.in — check eligibility and get card',
+ nodal:'District Chief Medical Officer',
+ docs:['Aadhaar','Ration Card','SECC listing (if applicable)'],
+ applyLink:'https://pmjay.gov.in',source:'pmjay.gov.in',sourceLabel:'Ayushman Bharat Portal'},
+
+{id:4,section:'people',subsection:'central-schemes',icon:'🍳',iconCls:'ci-terra',tags:['t-people'],
+ title:'PM Ujjwala Yojana — Free LPG Connection',dept:'Ministry of Petroleum',
+ summary:'Free LPG gas connection for BPL/SC/ST households. First refill subsidised.',
+ benefits:['Free LPG connection','First refill subsidy','No security deposit for BPL families'],
+ eligibility:'BPL/SC/ST households without existing LPG connection',
+ applyAt:'Nearest LPG distributor or pmuy.gov.in',
+ nodal:'District Food & Civil Supplies Officer',
+ docs:['Aadhaar','Ration Card','BPL certificate','Bank passbook'],
+ applyLink:'https://pmuy.gov.in',source:'pmuy.gov.in',sourceLabel:'Ujjwala Yojana Portal'},
+
+{id:5,section:'people',subsection:'central-schemes',icon:'💰',iconCls:'ci-blue',tags:['t-people'],
+ title:'PM Mudra Yojana — Business Loans',dept:'Ministry of Finance / SIDBI',
+ summary:'Collateral-free loans for small businesses: Shishu (up to ₹50k), Kishore (up to ₹5L), Tarun (up to ₹10L).',
+ benefits:['Shishu: up to ₹50,000','Kishore: ₹50,000–₹5 lakh','Tarun: ₹5 lakh–₹10 lakh','No collateral required'],
+ eligibility:'Non-corporate, non-farm small/micro enterprises',
+ applyAt:'Any bank / mudra.org.in',
+ nodal:'District Lead Bank Manager',
+ docs:['Aadhaar','PAN','Business proof','Bank statements'],
+ applyLink:'https://mudra.org.in',source:'mudra.org.in',sourceLabel:'Mudra Yojana Portal'},
+
+{id:6,section:'people',subsection:'central-schemes',icon:'👧',iconCls:'ci-gold',tags:['t-people'],
+ title:'Sukanya Samriddhi Yojana — Girl Child Savings',dept:'Ministry of Finance',
+ summary:'High-interest government savings scheme for girl children. Tax exempt. Current rate ~8.2% p.a.',
+ benefits:['Current interest rate: ~8.2% p.a.','Tax deduction under 80C','Matures when girl turns 21','Partial withdrawal at 18 for education'],
+ eligibility:'Girls below 10 years of age; max 2 accounts per family',
+ applyAt:'Any post office or bank branch',
+ nodal:'Post Office / Participating Banks',
+ docs:['Birth certificate of girl','Parent Aadhaar','Parent PAN','Photograph'],
+ applyLink:'https://www.indiapost.gov.in',source:'indiapost.gov.in',sourceLabel:'India Post'},
+
+{id:7,section:'people',subsection:'central-schemes',icon:'🧓',iconCls:'ci-gold',tags:['t-people'],
+ title:'Atal Pension Yojana — Guaranteed Pension',dept:'Ministry of Finance / NPS Trust',
+ summary:'Guaranteed monthly pension of ₹1,000–₹5,000 after age 60 based on contribution.',
+ benefits:['₹1,000 to ₹5,000 guaranteed monthly pension','Government co-contributes for BPL subscribers','Spouse gets pension after death'],
+ eligibility:'Indian citizens aged 18–40 years with bank account',
+ applyAt:'Bank or post office where savings account held',
+ nodal:'Participating Bank / Post Office',
+ docs:['Aadhaar','Bank account details','Mobile number'],
+ applyLink:'https://enps.nsdl.co.in/eNPS/NationalPensionSystem.html',source:'NPS Trust',sourceLabel:'NPS/APY Portal'},
+
+{id:8,section:'people',subsection:'central-schemes',icon:'🎓',iconCls:'ci-blue',tags:['t-people','t-education'],
+ title:'PM Scholarship Schemes',dept:'Ministry of Education / Welfare',
+ summary:'Multiple PM scholarship schemes for meritorious students, defence personnel children, police martyrs\' children.',
+ benefits:['PM Scholarship for Central Armed Police Forces children','Scholarship for higher education','SC/ST/OBC special scholarships'],
+ eligibility:'Various — depends on specific scheme; apply and check',
+ applyAt:'scholarships.gov.in — National Scholarship Portal',
+ nodal:'State Scholarship Nodal Officer',
+ docs:['Aadhaar','Marksheets','Category certificate','Bank passbook','Income certificate'],
+ applyLink:'https://scholarships.gov.in',source:'scholarships.gov.in',sourceLabel:'National Scholarship Portal'},
+
+{id:9,section:'people',subsection:'central-schemes',icon:'🏦',iconCls:'ci-green',tags:['t-people'],
+ title:'Jan Dhan Yojana — Zero Balance Account',dept:'Ministry of Finance',
+ summary:'Zero balance bank account with RuPay debit card, ₹10,000 overdraft, ₹2 lakh accidental insurance.',
+ benefits:['Zero balance account','RuPay debit card with ₹2 lakh accidental insurance','₹10,000 overdraft facility','Access to Aadhaar-linked DBT payments'],
+ eligibility:'Any Indian citizen without a bank account',
+ applyAt:'Any bank branch with Aadhaar and photograph',
+ nodal:'Nearest Bank Branch',
+ docs:['Aadhaar','Photograph'],
+ applyLink:'https://pmjdy.gov.in',source:'pmjdy.gov.in',sourceLabel:'PM Jan Dhan Portal'},
+
+// ── STATE SCHEMES ──
+{id:10,section:'people',subsection:'state-schemes',icon:'🌾',iconCls:'ci-green',tags:['t-people'],
+ title:'Krishak Unnati Yojana — Paddy Procurement',dept:'Dept. of Agriculture & Farmers Welfare, CG',
+ summary:'₹3,100 per quintal for paddy — covering gap between central MSP and state-promised rate. ₹10,000 crore budgeted 2025-26.',
+ benefits:['Procurement rate: ₹3,100/quintal','₹10,000 crore budget 2025-26','Direct payment to farmer accounts','Applicable from Kharif 2023-24'],
+ eligibility:'Paddy farmers registered in CG',
+ applyAt:'Nearest PACS / Cooperative / Mandi',
+ nodal:'Director, Agriculture & Farmers Welfare, Raipur',
+ docs:['Khasra/B1','Aadhaar','Bank passbook','Farmer registration on agriportal.cg.nic.in'],
+ applyLink:'https://agriportal.cg.nic.in',source:'CG Budget 2025-26',sourceLabel:'CG Budget Press Note'},
+
+{id:11,section:'people',subsection:'state-schemes',icon:'🐄',iconCls:'ci-green',tags:['t-people'],
+ title:'Godhan Nyay Yojana — Cow Dung Purchase',dept:'Dept. of Agriculture & Gaupalan, CG',
+ summary:'Government buys cow dung at ₹2/kg via Gauthans every 15 days. Women SHGs process into vermicompost for income.',
+ benefits:['₹2/kg for cow dung','Payments every 15 days','Women SHGs earn from vermicompost','Gaudham Yojana 2026: 29 new Gaudhams'],
+ eligibility:'CG domicile cattle owners; register at local Gauthan',
+ applyAt:'Nearest Gauthan / Ward Office',
+ nodal:'CG State Gauseva Commission, Raipur',
+ docs:['Aadhaar','Bank passbook','Cattle count declaration','Mobile number'],
+ applyLink:'https://godhannyay.cgstate.gov.in',source:'AIM India / CG Govt',sourceLabel:'Godhan Nyay Yojana'},
+
+{id:12,section:'people',subsection:'state-schemes',icon:'👩',iconCls:'ci-terra',tags:['t-people'],
+ title:'Mahtari Vandana Yojana — Women Monthly Support',dept:'Women & Child Development, CG',
+ summary:'₹1,000/month (₹12,000/year) direct cash transfer to eligible married women. ₹5,500 crore budgeted 2025-26.',
+ benefits:['₹1,000/month direct bank transfer','₹12,000/year per eligible woman','₹5,500 crore budget 2025-26'],
+ eligibility:'Married women; CG domicile; age 21+',
+ applyAt:'mahtarivandan.cgstate.gov.in / Ward Office / Gram Panchayat',
+ nodal:'District Women & Child Development Officer',
+ docs:['Aadhaar','Marriage certificate','Domicile certificate','Bank passbook (own name)','Mobile number'],
+ applyLink:'https://mahtarivandan.cgstate.gov.in',source:'CG Budget 2025-26',sourceLabel:'CG Budget Press Note'},
+
+{id:13,section:'people',subsection:'state-schemes',icon:'⚡',iconCls:'ci-gold',tags:['t-people'],
+ title:'Bijli Bill Half Yojana — 50% Electricity Subsidy',dept:'Dept. of Energy, CG',
+ summary:'50% subsidy on electricity bills up to 400 units/month for 40+ lakh consumers. Auto-applied, no application needed.',
+ benefits:['50% off for up to 400 units/month','40+ lakh consumers covered','Free up to 30 units for single-bulb homes','Applied automatically via CSPDCL billing'],
+ eligibility:'Domestic electricity consumers in CG (up to 400 units/month)',
+ applyAt:'Automatic — no application needed',
+ nodal:'Executive Engineer, CSPDCL of respective district',
+ docs:['No documents required — automatic'],
+ applyLink:'https://cspdcl.co.in',source:'CG Competition Point',sourceLabel:'CG Schemes 2024'},
+
+{id:14,section:'people',subsection:'state-schemes',icon:'🌱',iconCls:'ci-green',tags:['t-people'],
+ title:'Free Electricity for Agriculture Pumps',dept:'Dept. of Energy / Agriculture, CG',
+ summary:'Free electricity for irrigation pumps up to 5 HP. ₹3,500 crore budgeted in 2025-26.',
+ benefits:['Free for pumps up to 5 HP','₹3,500 crore budget 2025-26','Reduces irrigation cost directly'],
+ eligibility:'Farmers with agriculture pump connections up to 5 HP',
+ applyAt:'CSPDCL / Local electricity office',
+ nodal:'Executive Engineer, CSPDCL',
+ docs:['Electricity consumer number','Land records','Aadhaar','Pump capacity certificate'],
+ applyLink:'https://cspdcl.co.in',source:'CG Budget 2025-26',sourceLabel:'CG Budget Press Note'},
+
+{id:15,section:'people',subsection:'state-schemes',icon:'🌾',iconCls:'ci-terra',tags:['t-people'],
+ title:'Deendayal Upadhyay Bhumihin Krishi Majdoor Yojana',dept:'Dept. of Agriculture, CG',
+ summary:'₹10,000 annual assistance for landless agricultural labourers. 5.62 lakh+ beneficiaries.',
+ benefits:['₹10,000/year direct bank transfer','5.62 lakh+ beneficiaries','For landless farm workers only'],
+ eligibility:'Landless agricultural labourers; CG domicile; no owned agricultural land',
+ applyAt:'Gram Panchayat / Block Agriculture Office',
+ nodal:'Block Agriculture Officer',
+ docs:['Aadhaar','Domicile certificate','No-land certificate from Patwari','Bank passbook'],
+ applyLink:'https://agriportal.cg.nic.in',source:'CG Govt',sourceLabel:'CG Agriculture Portal'},
+
+// ── DOCUMENT SERVICES ──
+{id:16,section:'people',subsection:'doc-services',icon:'🪪',iconCls:'ci-blue',tags:['t-people'],
+ title:'Aadhaar — Update & Correction',dept:'UIDAI',
+ summary:'Update address, mobile number, or biometric at Aadhaar Seva Kendra. Online address update available.',
+ benefits:['Online address update at myaadhaar.uidai.gov.in','Mobile update at Aadhaar Seva Kendra','Biometric update at enrolled centres'],
+ eligibility:'Any Aadhaar holder',
+ applyAt:'myaadhaar.uidai.gov.in or nearest Seva Kendra',
+ nodal:'UIDAI Helpline: 1947',
+ docs:['Existing Aadhaar','Address proof'],
+ applyLink:'https://myaadhaar.uidai.gov.in',source:'UIDAI',sourceLabel:'UIDAI Portal'},
+
+{id:17,section:'people',subsection:'doc-services',icon:'🗳️',iconCls:'ci-blue',tags:['t-people'],
+ title:'Voter ID — Enrolment & Correction',dept:'Election Commission of India',
+ summary:'Enrol as new voter, update address, or correct name on voter ID card online.',
+ benefits:['Online enrolment and correction','Download e-EPIC (digital voter ID)','Track application status'],
+ eligibility:'Indian citizens 18 years and above',
+ applyAt:'voters.eci.gov.in',
+ nodal:'Electoral Registration Officer of constituency',
+ docs:['Aadhaar','Age proof','Address proof','Photograph'],
+ applyLink:'https://voters.eci.gov.in',source:'ECI',sourceLabel:'Voter Portal'},
+
+{id:18,section:'people',subsection:'doc-services',icon:'📄',iconCls:'ci-terra',tags:['t-people'],
+ title:'Caste Certificate — SC/ST/OBC',dept:'Revenue Dept., CG',
+ summary:'Apply for Caste Certificate online through CG Government portal. Mandatory for all reserved category benefits.',
+ benefits:['Online application','Delivered at home (in some districts)','Used for all govt benefits, admissions, jobs'],
+ eligibility:'SC/ST/OBC residents of CG',
+ applyAt:'edistrict.cgstate.gov.in',
+ nodal:'Tehsildar / Sub-Divisional Magistrate',
+ docs:['Aadhaar','Father/grandfather caste proof','Residence proof','School certificate'],
+ applyLink:'https://edistrict.cgstate.gov.in',source:'CG e-District',sourceLabel:'CG e-District Portal'},
+
+{id:19,section:'people',subsection:'doc-services',icon:'🏠',iconCls:'ci-terra',tags:['t-people'],
+ title:'Domicile / Residence Certificate',dept:'Revenue Dept., CG',
+ summary:'Essential certificate for all state government jobs, admissions, and schemes. Apply online.',
+ benefits:['Online application via e-District portal','Required for all CG state benefits','15-day processing time'],
+ eligibility:'Residents of CG for 3+ years',
+ applyAt:'edistrict.cgstate.gov.in',
+ nodal:'Tehsildar of respective tehsil',
+ docs:['Aadhaar','Address proof (utility bill/ration card)','Self-declaration'],
+ applyLink:'https://edistrict.cgstate.gov.in',source:'CG e-District',sourceLabel:'CG e-District Portal'},
+
+{id:20,section:'people',subsection:'doc-services',icon:'📑',iconCls:'ci-blue',tags:['t-people'],
+ title:'Income Certificate',dept:'Revenue Dept., CG',
+ summary:'Annual income certificate — required for EWS quota, scholarship applications, and government benefits.',
+ benefits:['Online application','Required for EWS/BPL benefits','Scholarship and loan applications'],
+ eligibility:'All CG residents',
+ applyAt:'edistrict.cgstate.gov.in',
+ nodal:'Tehsildar',
+ docs:['Aadhaar','Salary slip or income declaration','Ration card'],
+ applyLink:'https://edistrict.cgstate.gov.in',source:'CG e-District',sourceLabel:'CG e-District Portal'},
+
+{id:21,section:'people',subsection:'doc-services',icon:'🃏',iconCls:'ci-green',tags:['t-people'],
+ title:'Ration Card — Apply / Update',dept:'Food & Civil Supplies, CG',
+ summary:'Apply for new ration card or update family members. Linked to PDS for subsidised food grains.',
+ benefits:['Subsidised food grains under NFSA','₹1/kg rice (CG state scheme)','Required for many govt benefits'],
+ eligibility:'All households; BPL families get priority',
+ applyAt:'edistrict.cgstate.gov.in or nearest ration shop',
+ nodal:'District Food & Civil Supplies Officer',
+ docs:['Aadhaar (all family members)','Residence proof','Photograph'],
+ applyLink:'https://edistrict.cgstate.gov.in',source:'CG Govt',sourceLabel:'CG e-District'},
+
+{id:22,section:'people',subsection:'doc-services',icon:'👶',iconCls:'ci-gold',tags:['t-people'],
+ title:'Birth Certificate — Apply / Get Duplicate',dept:'Registrar of Births & Deaths',
+ summary:'Birth certificate is the gateway to all government services. Without it, children cannot access schemes, school, or scholarships.',
+ benefits:['Required for school admission','Required for all govt schemes','Late registration possible via magistrate'],
+ eligibility:'All births in CG',
+ applyAt:'crsorgi.gov.in — Civil Registration System',
+ nodal:'Municipal Corporation / Panchayat of birth area',
+ docs:['Hospital birth record','Parent Aadhaar','Marriage certificate of parents'],
+ applyLink:'https://crsorgi.gov.in',source:'CRS India',sourceLabel:'Civil Registration System'},
+
+{id:23,section:'people',subsection:'doc-services',icon:'💼',iconCls:'ci-green',tags:['t-people'],
+ title:'MGNREGS Job Card — 100 Days Work',dept:'Ministry of Rural Development',
+ summary:'Guaranteed 100 days of wage employment per year. ST households get priority. If work not provided in 15 days — unemployment allowance payable.',
+ benefits:['100 days guaranteed work per year','ST priority','Unemployment allowance if work not given in 15 days','Equal wages for men and women'],
+ eligibility:'Rural households; adult members willing to do manual work',
+ applyAt:'Gram Panchayat',
+ nodal:'Gram Panchayat / Block Development Officer',
+ docs:['Aadhaar','Residence proof','Photograph','Bank account'],
+ applyLink:'https://nregarep.nic.in',source:'MRD',sourceLabel:'MGNREGS Portal'},
+
+// ── HEALTH ──
+{id:24,section:'people',subsection:'health-schemes',icon:'🏥',iconCls:'ci-blue',tags:['t-people','t-health'],
+ title:'Dr. Khubchand Baghel Swasthya Sahayata Yojana',dept:'Health & Family Welfare, CG',
+ summary:'State health insurance up to ₹5 lakh (₹20 lakh for serious illness). Cashless at government and empanelled hospitals.',
+ benefits:['₹5 lakh per family per year','₹20 lakh for serious illnesses','Cashless treatment','Tribal families covered'],
+ eligibility:'CG residents — especially BPL, SC/ST families',
+ applyAt:'Nearest Jan Sevakar or government hospital',
+ nodal:'District Chief Medical Officer',
+ docs:['Aadhaar','Ration Card'],
+ applyLink:'https://dkbssy.cg.nic.in',source:'CG Health Dept',sourceLabel:'CG Health Portal'},
+
+{id:25,section:'people',subsection:'health-schemes',icon:'💊',iconCls:'ci-green',tags:['t-people','t-health'],
+ title:'Free Medicines at Government Hospitals',dept:'Health & Family Welfare, CG',
+ summary:'3,500+ drugs available free at government hospitals under CG\'s drug availability scheme.',
+ benefits:['3,500+ medicines free','Available at all govt hospitals and CHCs','No prescription charge'],
+ eligibility:'All patients at government hospitals',
+ applyAt:'Any government hospital — walk in with prescription',
+ nodal:'District Chief Medical Officer',
+ docs:['None required — present at hospital counter'],
+ applyLink:'https://health.cg.gov.in/nhm',source:'CG Health Dept',sourceLabel:'CG Health Portal'},
+
+{id:26,section:'people',subsection:'health-schemes',icon:'🤱',iconCls:'ci-terra',tags:['t-people','t-health'],
+ title:'JSSK — Free Delivery & Maternity Services',dept:'Health & Family Welfare',
+ summary:'Janani Shishu Suraksha Karyakram: Free delivery, C-section, medicines, diagnostics, and transport for pregnant women. Entitlement — no application needed.',
+ benefits:['Free delivery (normal and C-section)','Free medicines and diagnostics','Free transport to hospital and back','Free treatment for sick newborn up to 30 days'],
+ eligibility:'All pregnant women — especially tribal and BPL',
+ applyAt:'Nearest government hospital or sub-centre — no advance registration needed',
+ nodal:'Chief Medical Officer of district',
+ docs:['Aadhaar','MCH card (given at Anganwadi)'],
+ applyLink:'https://nhm.gov.in/index4.php?lang=1&level=0&linkid=99&lid=309',source:'MoHFW',sourceLabel:'JSSK Scheme'},
+
+{id:27,section:'people',subsection:'health-schemes',icon:'🧬',iconCls:'ci-terra',tags:['t-people','t-health','t-tribal'],
+ title:'Sickle Cell Disease — Free Screening & Treatment',dept:'Health & Family Welfare / Tribal Dept.',
+ summary:'Tribal communities in CG have highest prevalence of Sickle Cell. Free carrier testing, medication, counselling at district hospitals and mobile vans.',
+ benefits:['Free carrier testing','Free medication','Marriage counselling for carriers','Available at district hospitals and mobile health vans'],
+ eligibility:'All CG residents — especially tribal communities',
+ applyAt:'District hospital or Mobile Medical Unit — free, walk in',
+ nodal:'District Chief Medical Officer / Tribal Welfare Dept.',
+ docs:['Aadhaar'],
+ applyLink:'https://health.cg.gov.in/nhm',source:'CG Tribal Dept',sourceLabel:'Tribal Health Programme'},
+
+// ── COMPANIES / IDP ──
+{id:28,section:'companies',subsection:'idp-schemes',icon:'📊',iconCls:'ci-green',tags:['t-company'],
+ title:'Net SGST Reimbursement — 100% for 10 Years',dept:'Dept. of Commerce & Industry, CG',
+ summary:'New industries get 100% net SGST reimbursement for 10 years. Capped at 150% of Fixed Capital Investment.',
+ benefits:['100% net SGST reimbursed for 10 years','Cap: 150% of FCI','Micro: 1 instalment; Small: 3; Medium: 5 annual'],
+ eligibility:'New manufacturing/service industries commencing from 1 Nov 2024',
+ applyAt:'invest.cg.gov.in — Single Window',
+ nodal:'Director of Industries, Dept. of Commerce & Industry, Raipur',
+ docs:['GSTIN','Udyam Registration','FCI certificate from CA','Commencement of Production certificate'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30 PDF'},
+
+{id:29,section:'companies',subsection:'idp-schemes',icon:'👷',iconCls:'ci-green',tags:['t-company'],
+ title:'EPF Contribution Reimbursement',dept:'Dept. of Commerce & Industry, CG',
+ summary:'75% of EPF contribution reimbursed for CG domicile skilled employees for 5 years. Capped at ₹1 crore/year.',
+ benefits:['75% EPF reimbursed for 5 years','Annual cap: ₹1 crore','Employees earning below ₹50,000/month'],
+ eligibility:'New industries; CG domicile skilled/semi-skilled workers',
+ applyAt:'District Industries Centre',
+ nodal:'General Manager, DIC of respective district',
+ docs:['EPF challans','Employee domicile certificates','Salary slips','Udyam Registration'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30 PDF'},
+
+{id:30,section:'companies',subsection:'idp-schemes',icon:'🏗️',iconCls:'ci-terra',tags:['t-company'],
+ title:'Marginal Money Subsidy — SC/ST & Women Enterprises',dept:'Dept. of Commerce & Industry, CG',
+ summary:'25% capital investment subsidy (max ₹1 crore) for micro/small enterprises by SC/ST, women, ex-servicemen, Agniveers, Divyangjan.',
+ benefits:['25% of capital investment','Max investment: ₹10 crore','Max subsidy: ₹1 crore','Micro and small only'],
+ eligibility:'SC/ST, Women, Ex-servicemen, Agniveers, Divyangjan, Surrendered Naxalites',
+ applyAt:'District Industries Centre',
+ nodal:'General Manager, DIC',
+ docs:['Category certificate','Project cost CA certificate','Bank loan letter','Udyam Registration'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30 PDF'},
+
+{id:31,section:'companies',subsection:'idp-schemes',icon:'🚛',iconCls:'ci-blue',tags:['t-company'],
+ title:'Transport Cost Reimbursement',dept:'Dept. of Commerce & Industry, CG',
+ summary:'50% reimbursement of transport costs (excluding mining). Annual cap ₹50 lakh for up to 5 years.',
+ benefits:['50% of transport costs','Annual cap: ₹50 lakh','Duration: 5 years','Mining excluded'],
+ eligibility:'Eligible industries under IDP 2024-30 (non-mining)',
+ applyAt:'District Industries Centre',
+ nodal:'General Manager, DIC',
+ docs:['Transport invoices','Dispatch records','Bank statements','Udyam Registration'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30'},
+
+{id:32,section:'companies',subsection:'idp-schemes',icon:'🌾',iconCls:'ci-green',tags:['t-company'],
+ title:'Mandi Tax Exemption — Agro & Food Processing',dept:'Dept. of Commerce & Industry, CG',
+ summary:'100% mandi tax exemption for 5 years for agro, food processing, biofuel/ethanol enterprises. Cap ₹5 crore/year.',
+ benefits:['100% mandi tax free for 5 years','Annual cap: ₹5 crore','Cap: 75% of FCI'],
+ eligibility:'New large agro/food processing/biofuel enterprises from CG mandis',
+ applyAt:'Dept. of Commerce & Industry, Raipur',
+ nodal:'Commissioner, Dept. of Commerce & Industry',
+ docs:['FSSAI license','Mandi purchase invoices','FCI certificate','Udyam/IEM Registration'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30'},
+
+{id:33,section:'companies',subsection:'idp-schemes',icon:'🏭',iconCls:'ci-gold',tags:['t-company'],
+ title:'Land Premium Exemption — Industrial Areas',dept:'Dept. of Commerce & Industry / CSIDC, CG',
+ summary:'100% land premium exemption in CSIDC industrial areas. Lease rent: ₹1 per acre per year.',
+ benefits:['100% land premium exemption','Lease rent: ₹1/acre/year','CSIDC-managed areas only'],
+ eligibility:'New industries in CSIDC industrial areas',
+ applyAt:'CSIDC Head Office, Raipur — csidc.cg.gov.in',
+ nodal:'Managing Director, CSIDC, Raipur',
+ docs:['Land allotment letter','Investment plan','Udyam Registration'],
+ applyLink:'https://csidc.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30'},
+
+{id:34,section:'companies',subsection:'idp-schemes',icon:'🎓',iconCls:'ci-blue',tags:['t-company'],
+ title:'Training Expense Reimbursement',dept:'Dept. of Commerce & Industry, CG',
+ summary:'One-time reimbursement of 1 month wage or ₹15,000 per new CG domicile employee (whichever less) for 5 years.',
+ benefits:['1 month wage or ₹15,000/employee, whichever less','5-year duration','CG domicile skilled workers'],
+ eligibility:'New industries; CG domicile skilled employees under ₹50,000/month',
+ applyAt:'District Industries Centre',
+ nodal:'General Manager, DIC',
+ docs:['Appointment letters','Training certificates','Domicile certificates'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30'},
+
+{id:35,section:'companies',subsection:'idp-schemes',icon:'📋',iconCls:'ci-green',tags:['t-company'],
+ title:'Quality Certification Subsidy for MSMEs',dept:'Dept. of Commerce & Industry, CG',
+ summary:'50% reimbursement of quality certification expenses (ISO, BIS, FSSAI etc.) for MSMEs.',
+ benefits:['50% of certification costs reimbursed','Covers ISO, BIS, FSSAI and others','New and existing MSMEs eligible'],
+ eligibility:'New or existing MSMEs in CG',
+ applyAt:'District Industries Centre',
+ nodal:'General Manager, DIC',
+ docs:['Udyam Registration','Certification invoice','Bank payment proof','Certificate copy'],
+ applyLink:'https://invest.cg.gov.in',source:'industries.cg.gov.in',sourceLabel:'IDP 2024-30'},
+
+// ── STARTUP ──
+{id:36,section:'companies',subsection:'startup-schemes',icon:'🚀',iconCls:'ci-terra',tags:['t-company'],
+ title:'Startup Seed Funding — PoC Stage (₹10 Lakh)',dept:'Startup Cell, Dept. of Commerce & Industry, CG',
+ summary:'Seed funding up to ₹10 lakh for PoC/MVP development for state-recognised startups. Policy approved Feb 2025.',
+ benefits:['Up to ₹10 lakh seed funding','For PoC / MVP development','Women founders get additional 10%'],
+ eligibility:'CG-recognised startups under Innovation & Startup Promotion Policy 2025-30',
+ applyAt:'invest.cg.gov.in/startup',
+ nodal:'Startup Cell, Dept. of Commerce & Industry, Raipur',
+ docs:['State Startup Recognition','Business Plan','Founder Aadhaar & PAN','CG Domicile'],
+ applyLink:'https://invest.cg.gov.in/startup',source:'invest.cg.gov.in/startup',sourceLabel:'Startup CG Portal'},
+
+{id:37,section:'companies',subsection:'startup-schemes',icon:'💼',iconCls:'ci-terra',tags:['t-company'],
+ title:'Startup Capital Fund — ₹100 Crore Corpus',dept:'Startup Cell, Dept. of Commerce & Industry, CG',
+ summary:'₹100 crore state fund investing via SEBI AIFs (50:50). Separate ₹50 crore Credit Risk Fund — collateral-free loans up to ₹1 crore.',
+ benefits:['₹100 crore state corpus','50:50 AIF co-investment','₹50 crore Credit Risk Fund','Collateral-free loans up to ₹1 crore'],
+ eligibility:'State-recognised startups',
+ applyAt:'invest.cg.gov.in/startup',
+ nodal:'Startup Cell, Raipur',
+ docs:['Startup Recognition Certificate','Business Plan','Financials'],
+ applyLink:'https://invest.cg.gov.in/startup',source:'invest.cg.gov.in/startup',sourceLabel:'Startup CG Portal'},
+
+{id:38,section:'companies',subsection:'startup-schemes',icon:'💰',iconCls:'ci-blue',tags:['t-company'],
+ title:'Startup Interest Subsidy — 100% on Loans up to ₹50L',dept:'Startup Cell, Dept. of Commerce & Industry, CG',
+ summary:'100% interest subsidy on loans up to ₹50 lakh at max 10% for 5 years. Notification dated 25 Apr 2025.',
+ benefits:['100% interest subsidy','Loans up to ₹50 lakh','Max rate: 10% p.a.','Duration: 5 years'],
+ eligibility:'State-recognised startups',
+ applyAt:'invest.cg.gov.in/startup',
+ nodal:'Startup Cell, Raipur',
+ docs:['Startup Recognition','Bank Loan Sanction Letter','Interest payment receipts'],
+ applyLink:'https://invest.cg.gov.in/startup',source:'invest.cg.gov.in/startup',sourceLabel:'Startup CG Portal'},
+
+{id:39,section:'companies',subsection:'startup-schemes',icon:'🖥️',iconCls:'ci-gold',tags:['t-company'],
+ title:'Startup Digital Advertising Reimbursement',dept:'Startup Cell, Dept. of Commerce & Industry, CG',
+ summary:'Up to ₹3 lakh reimbursement for digital ads on Meta, YouTube, LinkedIn, Google Ads, Microsoft Ads.',
+ benefits:['Up to ₹3 lakh per startup','Meta, YouTube, LinkedIn, Google, Microsoft Ads eligible','One-time benefit'],
+ eligibility:'State-recognised startups; invoices in startup name',
+ applyAt:'invest.cg.gov.in/startup',
+ nodal:'Startup Cell, Raipur',
+ docs:['Startup Recognition','Ad platform invoices','Bank statements'],
+ applyLink:'https://invest.cg.gov.in/startup',source:'invest.cg.gov.in/startup',sourceLabel:'Startup CG Portal'},
+
+{id:40,section:'companies',subsection:'startup-schemes',icon:'🏢',iconCls:'ci-green',tags:['t-company'],
+ title:'Startup Workspace Rental Reimbursement',dept:'Startup Cell, Dept. of Commerce & Industry, CG',
+ summary:'60% of monthly rent reimbursed (max ₹15,000/month) for 3 years. Covers co-working and incubation centres.',
+ benefits:['60% of monthly rent','Max ₹15,000/month','3-year duration','Co-working & incubation centres covered'],
+ eligibility:'State-recognised startups with leased workspace',
+ applyAt:'invest.cg.gov.in/startup',
+ nodal:'Startup Cell, Raipur',
+ docs:['Startup Recognition','Rent Agreement','Rent receipts'],
+ applyLink:'https://invest.cg.gov.in/startup',source:'invest.cg.gov.in/startup',sourceLabel:'Startup CG Portal'},
+
+// ── BIZ REG ──
+{id:41,section:'companies',subsection:'biz-reg',icon:'📝',iconCls:'ci-blue',tags:['t-company'],
+ title:'Udyam (MSME) Registration',dept:'Ministry of MSME',
+ summary:'Free, paperless MSME registration. Required for all CG state schemes, bank loans, and priority credit.',
+ benefits:['Free registration','Priority credit access','Required for all CG MSME schemes','Collateral-free loans under CGTMSE'],
+ eligibility:'Manufacturing or service businesses; turnover below threshold',
+ applyAt:'udyamregistration.gov.in',
+ nodal:'District Industries Centre',
+ docs:['Aadhaar','PAN','Bank account'],
+ applyLink:'https://udyamregistration.gov.in',source:'MoMSME',sourceLabel:'Udyam Registration Portal'},
+
+{id:42,section:'companies',subsection:'biz-reg',icon:'🧾',iconCls:'ci-blue',tags:['t-company'],
+ title:'GST Registration',dept:'Central Board of Indirect Taxes',
+ summary:'Mandatory for businesses with turnover above threshold. Register online, get GSTIN.',
+ benefits:['Online registration','GSTIN issued in 7 days','Required for IDP 2024-30 SGST benefits'],
+ eligibility:'Businesses with turnover above ₹40L (goods) / ₹20L (services)',
+ applyAt:'gst.gov.in',
+ nodal:'GST Seva Kendra / Tax Consultant',
+ docs:['PAN','Aadhaar','Business proof','Bank account','Photographs'],
+ applyLink:'https://www.gst.gov.in',source:'CBIC',sourceLabel:'GST Portal'},
+
+{id:43,section:'companies',subsection:'biz-reg',icon:'🏢',iconCls:'ci-green',tags:['t-company'],
+ title:'MCA21 — Company Registration',dept:'Ministry of Corporate Affairs',
+ summary:'Incorporate Private Limited, LLP, OPC, or Public Limited company online through MCA21 portal.',
+ benefits:['Online incorporation','SPICe+ form for fast-track registration','DIN, DSC, PAN obtained in single process'],
+ eligibility:'Any person proposing to incorporate a company',
+ applyAt:'mca.gov.in',
+ nodal:'Registrar of Companies, CG',
+ docs:['Director Aadhaar & PAN','Address proof','MOA/AOA','DSC of directors'],
+ applyLink:'https://www.mca.gov.in',source:'MCA',sourceLabel:'MCA21 Portal'},
+
+{id:44,section:'companies',subsection:'biz-reg',icon:'🍽️',iconCls:'ci-terra',tags:['t-company'],
+ title:'FSSAI Food Business License',dept:'Food Safety and Standards Authority of India',
+ summary:'Mandatory for all food businesses. Registration for small; State/Central license for larger operators.',
+ benefits:['Online application','Multiple license categories','Required for agro/food processing IDP schemes'],
+ eligibility:'All food businesses',
+ applyAt:'foscos.fssai.gov.in',
+ nodal:'Designated Officer, FSSAI CG',
+ docs:['PAN','Aadhaar','Business address proof','Food safety management plan'],
+ applyLink:'https://foscos.fssai.gov.in',source:'FSSAI',sourceLabel:'FSSAI Portal'},
+
+{id:45,section:'companies',subsection:'biz-reg',icon:'📦',iconCls:'ci-blue',tags:['t-company'],
+ title:'GeM — Sell to Government',dept:'Ministry of Commerce',
+ summary:'Register on Government e-Marketplace to sell products and services to Central/State government departments.',
+ benefits:['Access to ₹2 lakh crore+ govt procurement','No middlemen','ST/tribal enterprises get preference categories'],
+ eligibility:'Any registered business or artisan',
+ applyAt:'gem.gov.in',
+ nodal:'GeM Helpdesk: 1800-419-3436',
+ docs:['Udyam Registration','PAN','Bank details','GST (if applicable)'],
+ applyLink:'https://gem.gov.in',source:'GeM',sourceLabel:'GeM Portal'},
+
+{id:46,section:'companies',subsection:'biz-reg',icon:'🤝',iconCls:'ci-green',tags:['t-company'],
+ title:'Stand-Up India — SC/ST & Women Business Loans',dept:'SIDBI / Ministry of Finance',
+ summary:'₹10 lakh to ₹1 crore bank loans for SC/ST and women entrepreneurs for greenfield enterprises.',
+ benefits:['₹10 lakh to ₹1 crore','SC/ST and women entrepreneurs','Greenfield enterprises only','7-year repayment period'],
+ eligibility:'SC/ST or women entrepreneurs; first-time business',
+ applyAt:'standupmitra.in',
+ nodal:'District Lead Bank Manager',
+ docs:['Category certificate','PAN','Aadhaar','Business plan','Bank account'],
+ applyLink:'https://www.standupmitra.in',source:'SIDBI',sourceLabel:'Stand-Up India Portal'},
+
+// ── TRIBAL EDUCATION (4.2) ──
+{id:47,section:'tribal',subsection:'tribal-edu',icon:'🏫',iconCls:'ci-tribal',tags:['t-tribal','t-education','t-critical'],
+ title:'Eklavya Model Residential Schools (EMRS)',dept:'Ministry of Tribal Affairs / CG Tribal Dept.',
+ summary:'FREE quality residential education (Class 6–12) for ST children in tribal blocks. 480 seats/school. Free boarding, lodging, uniform, books, meals. Competitive exam prep.',
+ benefits:['Free residential education Class 6-12','480 seats per school','Free boarding, food, uniform, books','Focus on JEE/NEET/competitive prep'],
+ eligibility:'ST children in tribal development blocks',
+ applyAt:'tribal.cg.gov.in — admissions every year',
+ nodal:'CG Tribal Welfare Dept., Raipur',
+ docs:['ST certificate','Age proof','Previous school marksheet','Aadhaar','Residence proof'],
+ applyLink:'https://tribal.cg.gov.in',source:'MoTA/CG Tribal',sourceLabel:'CG Tribal Portal'},
+
+{id:48,section:'tribal',subsection:'tribal-edu',icon:'🔬',iconCls:'ci-tribal',tags:['t-tribal','t-education','t-critical'],
+ title:'Pryas Residential Schools — NEET & JEE Coaching',dept:'CG Tribal Welfare Dept.',
+ summary:'State-run residential schools for tribal students preparing for NEET (medical) and JEE (engineering). Free coaching + housing. Admission via entrance test.',
+ benefits:['Free NEET/JEE coaching','Residential facility free','State-run schools across CG','Entrance test for admission'],
+ eligibility:'ST students with aptitude for science/engineering',
+ applyAt:'tribal.cg.gov.in',
+ nodal:'CG Tribal Welfare Dept., Raipur',
+ docs:['ST certificate','Class 10 marksheet','Aadhaar','Domicile certificate'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:49,section:'tribal',subsection:'tribal-edu',icon:'🏡',iconCls:'ci-tribal',tags:['t-tribal','t-education'],
+ title:'Ashram Schools — Remote Tribal Villages',dept:'CG Tribal Welfare Dept.',
+ summary:'Residential schools in Tribal Sub-Plan areas. Free boarding and schooling from primary level for children in remote tribal villages.',
+ benefits:['Free boarding and schooling','From primary level','Remote village children covered','ST boys and girls — separate schools'],
+ eligibility:'ST children in Tribal Sub-Plan areas and remote villages',
+ applyAt:'Nearest Block Education Office',
+ nodal:'Block Education Officer (BEO)',
+ docs:['ST certificate','Aadhaar','Parent consent','Residence proof'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:50,section:'tribal',subsection:'tribal-edu',icon:'📚',iconCls:'ci-blue',tags:['t-tribal','t-education'],
+ title:'Post-Matric Scholarship — ST Students',dept:'Ministry of Tribal Affairs / CG',
+ summary:'Full fee reimbursement + maintenance allowance for ST students in Class 11 and above. Apply at scholarships.gov.in.',
+ benefits:['Full tuition fee reimbursement','Maintenance allowance','Class 11 and above','Apply online'],
+ eligibility:'ST students from Class 11 upwards with family income below notified limit',
+ applyAt:'scholarships.gov.in — National Scholarship Portal',
+ nodal:'State Scholarship Nodal Officer, Tribal Dept.',
+ docs:['ST certificate','Marksheets','Income certificate','Aadhaar','Bank passbook','College admission proof'],
+ applyLink:'https://scholarships.gov.in',source:'MoTA',sourceLabel:'National Scholarship Portal'},
+
+{id:51,section:'tribal',subsection:'tribal-edu',icon:'🏆',iconCls:'ci-gold',tags:['t-tribal','t-education'],
+ title:'Top Class Education Scheme — IITs & NITs',dept:'Ministry of Tribal Affairs',
+ summary:'ST students in 267 premier institutions (IITs, NITs, IIMs etc.) get full fee + maintenance allowance. One of the least-known ST benefits.',
+ benefits:['Full tuition fee for IIT/NIT/IIM','Full maintenance allowance','267 premier institutions covered','Apply at scholarships.gov.in'],
+ eligibility:'ST students enrolled in 267 identified premier institutions',
+ applyAt:'scholarships.gov.in',
+ nodal:'Ministry of Tribal Affairs',
+ docs:['ST certificate','Admission letter from institution','Aadhaar','Bank account'],
+ applyLink:'https://scholarships.gov.in',source:'MoTA',sourceLabel:'Top Class Education Scheme'},
+
+{id:52,section:'tribal',subsection:'tribal-edu',icon:'🌐',iconCls:'ci-gold',tags:['t-tribal','t-education'],
+ title:'National Overseas Scholarship — Study Abroad',dept:'Ministry of Tribal Affairs',
+ summary:'17 slots for ST + 3 slots for PVTG students per year for postgraduate/PhD abroad. One of the most underutilised tribal scholarships.',
+ benefits:['Full scholarship for PG/PhD abroad','17 ST + 3 PVTG slots per year','Covers tuition, living, travel','Apply at tribal.nic.in'],
+ eligibility:'ST/PVTG graduates below 35 years; income limit applies',
+ applyAt:'tribal.nic.in',
+ nodal:'Ministry of Tribal Affairs',
+ docs:['ST/PVTG certificate','Degree certificate','Income certificate','Aadhaar','Passport'],
+ applyLink:'https://tribal.nic.in',source:'MoTA',sourceLabel:'Overseas Scholarship Portal'},
+
+{id:53,section:'tribal',subsection:'tribal-edu',icon:'⚖️',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'Free UPSC/CGPSC Coaching for ST/SC',dept:'CG Tribal Welfare Dept.',
+ summary:'Free coaching for ST/SC candidates for UPSC Civil Services and CGPSC state services. CG Tribal Dept. sponsors classroom coaching.',
+ benefits:['Free coaching for UPSC/CGPSC','CG Tribal Dept. funded','Hostel facility at Tribal Youth Hostel Delhi','Multiple centres across CG'],
+ eligibility:'ST/SC candidates appearing for UPSC/CGPSC; income limit applies',
+ applyAt:'tribal.cg.gov.in',
+ nodal:'CG Tribal Welfare Dept., Raipur',
+ docs:['ST/SC certificate','Graduation degree','Aadhaar','Domicile certificate'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:54,section:'tribal',subsection:'tribal-edu',icon:'🏨',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'Tribal Youth Hostel — New Delhi (UPSC Aspirants)',dept:'CG Tribal Welfare Dept.',
+ summary:'CG tribal students preparing for UPSC can stay at subsidised Tribal Youth Hostel in Dwarka, New Delhi. Very few know about this.',
+ benefits:['Subsidised accommodation in Delhi','For UPSC aspirants from CG tribal communities','Apply at tribal.cg.gov.in'],
+ eligibility:'CG tribal students appearing for UPSC in Delhi',
+ applyAt:'tribal.cg.gov.in',
+ nodal:'CG Tribal Welfare Dept., Raipur',
+ docs:['ST certificate','CG Domicile','UPSC admit card','Aadhaar'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:55,section:'tribal',subsection:'tribal-edu',icon:'🧑‍🔬',iconCls:'ci-blue',tags:['t-tribal','t-education'],
+ title:'Pre-Engineering & Pre-Medical Coaching',dept:'CG Tribal Welfare Dept.',
+ summary:'Free JEE and NEET coaching for tribal students at centres across CG. Separate from Pryas Schools.',
+ benefits:['Free JEE/NEET coaching','Multiple coaching centres in CG','Hostel facility at some centres'],
+ eligibility:'ST students who have passed Class 10 with science subjects',
+ applyAt:'tribal.cg.gov.in',
+ nodal:'CG Tribal Welfare Dept., Raipur',
+ docs:['ST certificate','Class 10 marksheet','Aadhaar','Domicile'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:56,section:'tribal',subsection:'tribal-edu',icon:'👩‍🎓',iconCls:'ci-tribal',tags:['t-tribal','t-education'],
+ title:'Kasturba Gandhi Balika Vidyalaya — Girls',dept:'Ministry of Education / CG',
+ summary:'Free residential schools for girls from SC/ST/minorities/BPL in educationally backward blocks including Naxal-affected areas.',
+ benefits:['Free residential education for girls','SC/ST/minority/BPL girls','Naxal-affected areas prioritised','Class 6-12'],
+ eligibility:'Girls from SC/ST, minority, BPL, OBC in educationally backward blocks',
+ applyAt:'Nearest Block Education Office',
+ nodal:'Block Education Officer / District Education Officer',
+ docs:['ST/OBC/BPL certificate','Age proof','Aadhaar','Parent consent'],
+ applyLink:'https://samagra.education.gov.in',source:'MoE',sourceLabel:'Samagra Shiksha'},
+
+// ── TRIBAL FOREST (4.3) ──
+{id:57,section:'tribal',subsection:'tribal-forest',icon:'🌳',iconCls:'ci-green',tags:['t-tribal','t-critical'],
+ title:'FRA Individual Forest Rights — Land Title (Patta)',dept:'Ministry of Tribal Affairs / CG Forest Dept.',
+ summary:'Every ST family cultivating forest land since before Dec 2005 has a LEGAL RIGHT to a land title (up to 4 hectares). If rejected, you can re-file.',
+ benefits:['Land title (patta) up to 4 hectares','Property right — can be inherited','Cannot be taken without Gram Sabha consent','Re-filing allowed if rejected'],
+ eligibility:'ST families cultivating forest land since before 13 December 2005',
+ applyAt:'Claim form to Gram Sabha → Forest Rights Committee → SDLC → DLC',
+ nodal:'Sub-Divisional Level Committee (SDLC) / District Collector',
+ docs:['Evidence of forest land cultivation since 2005','Aadhaar','ST certificate','Witness statements','Photographs of land'],
+ applyLink:'https://tribal.nic.in/fra.aspx',source:'MoTA',sourceLabel:'FRA Portal'},
+
+{id:58,section:'tribal',subsection:'tribal-forest',icon:'🌿',iconCls:'ci-green',tags:['t-tribal','t-critical'],
+ title:'Community Forest Resource Rights (CFR)',dept:'Ministry of Tribal Affairs / CG',
+ summary:'Most powerful tribal right — Gram Sabha gets full management rights over community forest area. CG Gram Sabhas have used this to stop mining and protect forests.',
+ benefits:['Full management rights over community forest','Gram Sabha becomes custodian','Can stop illegal mining, encroachment','Traditional forest practices protected'],
+ eligibility:'Any Gram Sabha in forest-dwelling ST community area',
+ applyAt:'Gram Sabha resolution → District Collector',
+ nodal:'District Collector / Tribal Welfare Dept.',
+ docs:['Gram Sabha resolution','Map of community forest area','Proof of traditional use','ST community proof'],
+ applyLink:'https://tribal.nic.in/fra.aspx',source:'MoTA',sourceLabel:'FRA Portal'},
+
+{id:59,section:'tribal',subsection:'tribal-forest',icon:'🍃',iconCls:'ci-green',tags:['t-tribal'],
+ title:'MFP MSP — Minor Forest Produce at Government Price',dept:'CGMFPFED / Ministry of Tribal Affairs',
+ summary:'87 notified MFP items have MSP. Tendu: ₹5,500/std bag. Mahua, Sal Seeds, Tamarind, Amla, Honey all have guaranteed prices. Do NOT sell to middlemen.',
+ benefits:['87 MFP items at MSP','Tendu leaves: ₹5,500/standard bag','Mahua, Sal, Tamarind, Amla, Honey, Chironji, Bamboo covered','CGMFPFED buys directly'],
+ eligibility:'All forest-dwelling tribal communities in CG',
+ applyAt:'Primary Minor Forest Produce Committee (PMFPC) or Gram Panchayat',
+ nodal:'CGMFPFED, Raipur',
+ docs:['Aadhaar','ST certificate','Collection record from Van Samiti','Bank passbook'],
+ applyLink:'https://cgmfpfed.cg.gov.in',source:'CGMFPFED',sourceLabel:'CG MFP Federation'},
+
+{id:60,section:'tribal',subsection:'tribal-forest',icon:'🌿',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'Van Dhan Vikas Yojana — Income from Forest Produce',dept:'TRIFED / Ministry of Tribal Affairs',
+ summary:'Tribal SHGs (15-20 members) receive training, equipment, and ₹15 lakh to add value to forest produce. Products sold via TRIFED national network.',
+ benefits:['₹15 lakh per Van Dhan Vikas Kendra','Training and equipment provided','Products sold via Tribes India nationwide','Honey, mahua, amla, turmeric processing'],
+ eligibility:'Tribal families forming SHGs of 15-20 members',
+ applyAt:'TRIFED / CGMFPFED — Van Dhan Bhavan, Sector 24, Nava Raipur',
+ nodal:'CGMFPFED, Raipur / TRIFED Regional Office',
+ docs:['SHG formation proof','Member Aadhaar','ST certificates','Bank account'],
+ applyLink:'https://trifed.tribal.gov.in',source:'TRIFED',sourceLabel:'TRIFED Portal'},
+
+{id:61,section:'tribal',subsection:'tribal-forest',icon:'🍂',iconCls:'ci-green',tags:['t-tribal'],
+ title:'Tendupatta (Kendu) Collection — MSP ₹5,500/Bag',dept:'CG Minor Forest Produce Federation',
+ summary:'CG is India\'s largest tendu leaf producer (17% national output). Tribal collectors must receive ₹5,500/standard bag. CG earned ₹942 crore from tendu in 2024.',
+ benefits:['MSP: ₹5,500 per standard bag','Increased from ₹4,000 earlier','Government buys via CGMFPFED','CG earned ₹942 crore in 2024'],
+ eligibility:'Tribal collectors in CG forest areas',
+ applyAt:'Nearest PMFPC or Van Samiti',
+ nodal:'Divisional Forest Officer of respective division',
+ docs:['Aadhaar','ST certificate','Collection record','Bank passbook'],
+ applyLink:'https://cgmfpfed.cg.gov.in',source:'CGMFPFED',sourceLabel:'CG MFP Federation'},
+
+{id:62,section:'tribal',subsection:'tribal-forest',icon:'🏘️',iconCls:'ci-green',tags:['t-tribal'],
+ title:'MGNREGS Priority for Tribal Households',dept:'Ministry of Rural Development',
+ summary:'ST households get PRIORITY for 100 days guaranteed work. If work not provided in 15 days — unemployment allowance is MANDATORY.',
+ benefits:['100 days guaranteed work','ST households get priority','Unemployment allowance if work delayed','Equal wages — no gender discrimination'],
+ eligibility:'ST rural households',
+ applyAt:'Gram Panchayat',
+ nodal:'Gram Panchayat / BDO',
+ docs:['Aadhaar','Job Card (apply at Gram Panchayat)','Bank account'],
+ applyLink:'https://nregarep.nic.in',source:'MRD',sourceLabel:'MGNREGS Portal'},
+
+{id:63,section:'tribal',subsection:'tribal-forest',icon:'🏛️',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'PESA Act — Tribal Gram Sabha Special Powers',dept:'Ministry of Panchayati Raj',
+ summary:'Panchayats Extension to Scheduled Areas Act gives tribal Gram Sabhas powers NOT available to others: consent for land acquisition, MFP management, money-lending regulation.',
+ benefits:['Land acquisition requires Gram Sabha consent','Gram Sabha manages minor forest produce','Gram Sabha controls money lending','No non-tribal can buy tribal land (5th Schedule)'],
+ eligibility:'Gram Sabhas in Scheduled Area villages of CG',
+ applyAt:'Gram Sabha meeting — exercise rights as a community. No portal needed — it is a statutory right.',
+ nodal:'District Collector / SDM',
+ docs:['Gram Sabha resolution','Village schedule area notification'],
+ applyLink:'https://tribal.nic.in/pesa.aspx',source:'MoPR',sourceLabel:'PESA Act'},
+
+{id:64,section:'tribal',subsection:'tribal-forest',icon:'🎨',iconCls:'ci-gold',tags:['t-tribal'],
+ title:'TRIFED — Tribes India Market for Tribal Artisans',dept:'TRIFED / Ministry of Tribal Affairs',
+ summary:'Register on Tribes India to sell Bastar dhokra, terracotta, iron craft, bamboo products nationally. GI Tagged products (Bastar Dhokra, Bastar Iron Craft) command premium prices.',
+ benefits:['National market access via Tribes India','GI Tag products: premium pricing','Bastar Dhokra and Iron Craft are GI certified','Online + retail store network'],
+ eligibility:'Tribal artisans and craft clusters in CG',
+ applyAt:'trifed.tribal.gov.in',
+ nodal:'TRIFED Regional Office / CG Hastshilp Vikas Board',
+ docs:['Aadhaar','ST certificate','Product photographs','Bank account'],
+ applyLink:'https://trifed.tribal.gov.in',source:'TRIFED',sourceLabel:'TRIFED Portal'},
+
+// ── PVTG (4.4) ──
+{id:65,section:'tribal',subsection:'tribal-pvtg',icon:'🏡',iconCls:'ci-tribal',tags:['t-tribal','t-pvtg','t-critical'],
+ title:'PM-JANMAN — ₹24,000 Crore PVTG Package',dept:'Ministry of Tribal Affairs',
+ summary:'Launched 2023 exclusively for PVTGs: Free pucca house, piped water, road connectivity, mobile health vans, Anganwadis, solar electricity. All 8 CG PVTGs covered.',
+ benefits:['Free pucca house (PM Awas priority)','Piped drinking water to PVTG habitations','Road connectivity to remote villages','Mobile health vans with sickle cell screening','Solar electricity for off-grid villages'],
+ eligibility:'Kamar, Baiga, Hill Korwa, Abujhmaria, Birhor, Pahadi Korba, Pando, Bhunjia communities',
+ applyAt:'District Collector office / tribal.cg.gov.in',
+ nodal:'District Collector / District Tribal Welfare Officer',
+ docs:['PVTG community certificate','Aadhaar','Income proof','Residence proof'],
+ applyLink:'https://tribal.cg.gov.in',source:'MoTA',sourceLabel:'PM JANMAN Portal'},
+
+{id:66,section:'tribal',subsection:'tribal-pvtg',icon:'🌏',iconCls:'ci-gold',tags:['t-tribal','t-pvtg'],
+ title:'PVTG Overseas Scholarship — 3 Reserved Slots',dept:'Ministry of Tribal Affairs',
+ summary:'National Overseas Scholarship has 3 slots EXCLUSIVELY for PVTG students per year for postgraduate/PhD abroad. Almost never claimed.',
+ benefits:['3 slots exclusively for PVTGs','Full scholarship for PG/PhD abroad','Covers tuition, living, travel','Kamar, Baiga, Hill Korwa etc. eligible'],
+ eligibility:'PVTG graduates below 35 years; income limit applies',
+ applyAt:'tribal.nic.in',
+ nodal:'Ministry of Tribal Affairs',
+ docs:['PVTG community certificate','Degree','Income certificate','Passport','Aadhaar'],
+ applyLink:'https://tribal.nic.in',source:'MoTA',sourceLabel:'PVTG Overseas Scholarship'},
+
+{id:67,section:'tribal',subsection:'tribal-pvtg',icon:'🌿',iconCls:'ci-tribal',tags:['t-tribal','t-pvtg'],
+ title:'Habitat Rights (FRA) — For PVTGs',dept:'Ministry of Tribal Affairs / CG Forest Dept.',
+ summary:'PVTGs can claim habitat rights over their ENTIRE traditional territory under FRA 2006. Kamar tribe in Dhamtari received habitat rights over 22 villages in Magarlod block in 2023.',
+ benefits:['Traditional territory habitat rights','Stronger than individual land title','Gram Sabha becomes permanent custodian','Dhamtari example: 22 villages covered'],
+ eligibility:'PVTG communities with traditional territorial presence',
+ applyAt:'Community claim to Gram Sabha → District Collector',
+ nodal:'District Collector / Sub-Divisional Level Committee',
+ docs:['PVTG certificate','Map of traditional territory','Gram Sabha resolution','Evidence of habitation'],
+ applyLink:'https://tribal.nic.in/fra.aspx',source:'MoTA',sourceLabel:'FRA Habitat Rights'},
+
+{id:68,section:'tribal',subsection:'tribal-pvtg',icon:'🏗️',iconCls:'ci-green',tags:['t-tribal','t-pvtg'],
+ title:'Development of PVTGs Scheme — Comprehensive Support',dept:'Ministry of Tribal Affairs / CG',
+ summary:'Free housing, land development, agricultural support, cattle, social security insurance for all 8 PVTG communities in CG.',
+ benefits:['Free housing','Land development support','Agricultural inputs','Cattle development','Social security and insurance'],
+ eligibility:'All 8 PVTG communities in CG: Kamar, Baiga, Hill Korwa, Abujhmaria, Birhor, Pahadi Korba, Pando, Bhunjia',
+ applyAt:'District Collector / tribal.cg.gov.in',
+ nodal:'District Tribal Welfare Officer',
+ docs:['PVTG certificate','Aadhaar','Bank passbook','Residence proof'],
+ applyLink:'https://tribal.cg.gov.in',source:'MoTA/CG Tribal',sourceLabel:'PVTG Development Scheme'},
+
+{id:69,section:'tribal',subsection:'tribal-pvtg',icon:'🌾',iconCls:'ci-green',tags:['t-tribal','t-pvtg'],
+ title:'PM Janjatiya Unnat Gram Abhiyan — PVTG Villages',dept:'Ministry of Tribal Affairs',
+ summary:'₹50 crore for tribal village infrastructure in Bastar and other PVTG areas. Holistic village development.',
+ benefits:['₹50 crore for PVTG village infrastructure','Schools, health, roads, water','Bastar districts prioritised'],
+ eligibility:'PVTG habitations in CG',
+ applyAt:'District Collector / Panchayat',
+ nodal:'District Collector',
+ docs:['Village/habitation proof'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Budget 2025-26',sourceLabel:'CG Budget Press Note'},
+
+// ── TRIBAL HEALTH ──
+{id:70,section:'tribal',subsection:'tribal-health',icon:'🚐',iconCls:'ci-blue',tags:['t-tribal','t-health'],
+ title:'Mobile Medical Units — Remote Tribal Villages',dept:'Health & Family Welfare, CG',
+ summary:'Mobile Medical Units visit remote tribal villages weekly. Free OPD, medicines, diagnostic tests. No need to travel to district hospital.',
+ benefits:['Free OPD at village level','Free medicines and diagnostics','Weekly visits to remote villages','No travel required for basic care'],
+ eligibility:'All residents of tribal areas',
+ applyAt:'No application required — MMU visits your village on schedule. Contact ASHA worker for schedule.',
+ nodal:'District Chief Medical Officer',
+ docs:['None required'],
+ applyLink:'https://health.cg.gov.in/nhm',source:'CG Health Dept',sourceLabel:'CG NHM Portal'},
+
+{id:71,section:'tribal',subsection:'tribal-health',icon:'🦟',iconCls:'ci-green',tags:['t-tribal','t-health'],
+ title:'Malaria Control — Nets, Medicine, ASHA Surveillance',dept:'Health & Family Welfare, CG',
+ summary:'CG tribal areas are malaria endemic. Free insecticide-treated nets, free medicine, free rapid testing, ASHA worker home surveillance.',
+ benefits:['Free insecticide-treated nets','Free rapid diagnostic testing','Free treatment','ASHA worker weekly visits'],
+ eligibility:'All residents of tribal areas',
+ applyAt:'ASHA worker / Sub Health Centre / PHC — free, walk in. No registration needed.',
+ nodal:'District NVBDCP Officer / CMO',
+ docs:['None'],
+ applyLink:'https://nvbdcp.gov.in/index4.php?lang=1&level=0&linkid=431&lid=3689',source:'NVBDCP',sourceLabel:'Malaria Control Programme'},
+
+{id:72,section:'tribal',subsection:'tribal-health',icon:'🍼',iconCls:'ci-terra',tags:['t-tribal','t-health'],
+ title:'ICDS / Anganwadi — Nutrition & Preschool',dept:'Women & Child Development, CG',
+ summary:'Free supplementary nutrition for children under 6 at every Anganwadi. Growth monitoring, immunisation, and preschool education. Tribal Anganwadis include tribal language learning.',
+ benefits:['Free nutrition for children under 6','Immunisation','Preschool education','Tribal language learning at Anganwadis'],
+ eligibility:'Children under 6, pregnant and lactating mothers',
+ applyAt:'Walk into nearest Anganwadi centre — automatic entitlement, no registration form needed',
+ nodal:'ICDS Supervisor / CDPO',
+ docs:['Child Aadhaar (or birth proof)','Mother Aadhaar'],
+ applyLink:'https://icds-wcd.nic.in',source:'CG WCD',sourceLabel:'CG Women & Child Dev'},
+
+{id:73,section:'tribal',subsection:'tribal-health',icon:'🏥',iconCls:'ci-blue',tags:['t-tribal','t-health'],
+ title:'Mukhyamantri Vishesh Swasthya Sahayata Yojana',dept:'Health & Family Welfare, CG',
+ summary:'For complex surgeries beyond PM-JAY coverage. Tribal patients get fast-track approvals. Up to ₹5-20 lakh additional coverage.',
+ benefits:['Complex surgeries beyond PM-JAY','Fast-track approval for tribal patients','Additional ₹5-20 lakh coverage'],
+ eligibility:'CG residents requiring complex surgery; tribal patients prioritised',
+ applyAt:'Nearest government hospital or empanelled private hospital — cashless at counter',
+ nodal:'District Chief Medical Officer',
+ docs:['Aadhaar','Ration Card','Medical diagnosis report','ST certificate'],
+ applyLink:'https://dkbssy.cg.nic.in',source:'CG Health Dept',sourceLabel:'CG Health Portal'},
+
+{id:74,section:'tribal',subsection:'tribal-health',icon:'🤱',iconCls:'ci-terra',tags:['t-tribal','t-health'],
+ title:'JSSK — Free Delivery for Tribal Women',dept:'Health & Family Welfare',
+ summary:'Janani Shishu Suraksha Karyakram: Free delivery, C-section, medicines, diagnostics, and transport. Tribal pregnant women are priority beneficiaries.',
+ benefits:['Free delivery — normal or C-section','Free medicines and diagnostics','Free transport to hospital and back','Tribal women are priority'],
+ eligibility:'Pregnant women — tribal women prioritised',
+ applyAt:'Nearest government hospital, sub-centre, or contact ASHA worker to arrange — zero cost',
+ nodal:'CMO / Sub-District Medical Officer',
+ docs:['Aadhaar','MCH card'],
+ applyLink:'https://nhm.gov.in/index4.php?lang=1&level=0&linkid=99&lid=309',source:'MoHFW',sourceLabel:'JSSK Scheme'},
+
+// ── TRIBAL LEGAL ──
+{id:75,section:'tribal',subsection:'tribal-legal',icon:'⚖️',iconCls:'ci-tribal',tags:['t-tribal','t-critical'],
+ title:'SC/ST Prevention of Atrocities Act — File Complaint',dept:'Ministry of Social Justice / CG Police',
+ summary:'Any humiliation, violence, land grabbing, forced labour against ST person is a CRIMINAL OFFENCE. Police CANNOT refuse to register FIR. Victim gets immediate relief and free legal aid.',
+ benefits:['FIR must be registered immediately','Immediate financial relief to victim','Free legal aid','Exclusive Special Courts in CG districts','District SP/DSP (Atrocities) handles cases'],
+ eligibility:'Any ST person who is a victim of atrocity under PoA Act',
+ applyAt:'Nearest Police Station — FIR CANNOT be refused. If refused, contact SP (Atrocities) or call 112.',
+ nodal:'Superintendent of Police (Atrocities) / State SC/ST Commission, Raipur',
+ docs:['Written complaint','Evidence (photos, witness names)','Medical report if injured'],
+ applyLink:'https://cgpolice.gov.in/citizen-services',source:'MoSJ&E',sourceLabel:'PoA Act'},
+
+{id:76,section:'tribal',subsection:'tribal-legal',icon:'🏠',iconCls:'ci-green',tags:['t-tribal','t-critical'],
+ title:'Land Alienation Protection — No Non-Tribal Can Buy Tribal Land',dept:'Revenue Dept., CG / MoTA',
+ summary:'Under 5th Schedule and state laws, no non-tribal person can buy land in Scheduled Areas from a tribal. If illegally taken, restoration can be demanded at Sub-Divisional Officer.',
+ benefits:['Absolute protection against non-tribal land purchase','Restoration of illegally alienated land','Complaint at SDO / District Collector','Criminal charges under PoA Act if forcibly taken'],
+ eligibility:'All ST persons in Scheduled Area villages of CG',
+ applyAt:'Sub-Divisional Officer (Revenue) / District Collector',
+ nodal:'SDO Revenue / District Collector',
+ docs:['Land records','Evidence of alienation','ST certificate'],
+ applyLink:'https://edistrict.cgstate.gov.in',source:'CG Revenue',sourceLabel:'CG Revenue Portal'},
+
+{id:77,section:'tribal',subsection:'tribal-legal',icon:'🔗',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'Bonded Labour — Free Release & ₹1 Lakh Rehabilitation',dept:'Ministry of Labour / CG Labour Dept.',
+ summary:'Bonded labourers get IMMEDIATE release certificate + ₹1 lakh rehabilitation grant. Bonded labour is ILLEGAL. Tribal workers are most vulnerable.',
+ benefits:['Immediate release certificate','₹1 lakh rehabilitation grant','Criminal case against employer','Priority rehabilitation support'],
+ eligibility:'Any bonded labourer — tribal workers prioritised',
+ applyAt:'District Collector office or call CM Helpline 1100 — release is immediate on complaint',
+ nodal:'District Labour Officer / District Collector',
+ docs:['None required — release done on the spot. File complaint verbally.'],
+ applyLink:'https://shramsuvidha.gov.in',source:'MoL&E',sourceLabel:'Labour Ministry'},
+
+{id:78,section:'tribal',subsection:'tribal-legal',icon:'💸',iconCls:'ci-gold',tags:['t-tribal'],
+ title:'PESA Anti-Exploitation — Money Lending Protection',dept:'CG Panchayati Raj / Revenue Dept.',
+ summary:'Under PESA, money lending to tribal people requires Gram Sabha registration. Fixed interest rates. Gram Sabha can stop exploitative lenders from operating in village.',
+ benefits:['Money lenders must register with Gram Sabha','Fixed interest rate limits apply','Gram Sabha can ban exploitative lenders','Tribal money lending complaints to SDM'],
+ eligibility:'All ST persons in Scheduled Area villages',
+ applyAt:'Gram Sabha meeting — pass a resolution. Then SDM if lender violates.',
+ nodal:'SDM / Block Development Officer',
+ docs:['Evidence of exploitative lending','Gram Sabha meeting request'],
+ applyLink:'https://tribal.nic.in/pesa.aspx',source:'PESA Act',sourceLabel:'PESA Act Implementation'},
+
+// ── BASTAR ──
+{id:79,section:'tribal',subsection:'bastar-schemes',icon:'🏔️',iconCls:'ci-tribal',tags:['t-tribal'],
+ title:'Naxal-Affected Districts Special Package',dept:'CG Govt / Ministry of Home Affairs',
+ summary:'₹220 crore special package (2025-26 budget) for Bastar, Dantewada, Bijapur, Sukma, Narayanpur, Kondagaon, Kanker, Sukma.',
+ benefits:['₹220 crore special package','Infrastructure, education, health','Dharti Abha: ₹30 crore for holistic village dev','Surrender and rehabilitation for ex-Naxals'],
+ eligibility:'Residents of Bastar, Dantewada, Bijapur, Sukma, Narayanpur, Kondagaon, Kanker',
+ applyAt:'District Collector office of respective district — schemes applied automatically or via Gram Sabha',
+ nodal:'District Collector',
+ docs:['Residence proof of district','Aadhaar'],
+ applyLink:'https://cgstate.gov.in',source:'CG Budget 2025-26',sourceLabel:'CG Budget Press Note'},
+
+{id:80,section:'tribal',subsection:'bastar-schemes',icon:'🔬',iconCls:'ci-blue',tags:['t-tribal','t-education'],
+ title:'Mobile Science Labs — 5 Tribal Districts',dept:'CG Tribal Welfare Dept.',
+ summary:'Mobile science laboratories operating in 5 tribal districts for school children. Hands-on science education in areas with no labs.',
+ benefits:['Science education in remote areas','Mobile units visit schools','5 tribal districts covered','No permanent infrastructure needed'],
+ eligibility:'School children in 5 designated tribal districts',
+ applyAt:'School principal can request visit',
+ nodal:'District Education Officer / Tribal Welfare Dept.',
+ docs:['None for students'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+{id:81,section:'tribal',subsection:'bastar-schemes',icon:'🤝',iconCls:'ci-terra',tags:['t-tribal'],
+ title:'Surrender & Rehabilitation Policy — Ex-Naxal Tribals',dept:'CG Home Dept. / Tribal Welfare',
+ summary:'Ex-Naxal tribals who surrender get housing, employment, skill training, and full rehabilitation package. No criminal prosecution for minor offences.',
+ benefits:['Housing under PM Awas','Skill training and employment linkage','Financial rehabilitation package','Education for children'],
+ eligibility:'Naxal-affected persons surrendering through proper process',
+ applyAt:'District Collector office or nearest Police Station — voluntary surrender process',
+ nodal:'District Collector / SP',
+ docs:['Voluntary surrender statement — support provided on site'],
+ applyLink:'https://cgpolice.gov.in/citizen-services',source:'CG Police',sourceLabel:'CG Police Portal'},
+
+{id:82,section:'tribal',subsection:'bastar-schemes',icon:'🏅',iconCls:'ci-gold',tags:['t-tribal'],
+ title:'Bastar Olympics & Marathon — Tribal Youth Sports',dept:'CG Tribal Welfare Dept.',
+ summary:'Annual Bastar Olympics and Bastar Marathon — prizes, recognition, and sports scholarships for tribal youth. Traditional sports included alongside modern events.',
+ benefits:['Cash prizes for winners','Sports scholarships','National recognition','Traditional sports included','Platform for tribal athletes'],
+ eligibility:'Tribal youth from Bastar division',
+ applyAt:'District Sports Officer / tribal.cg.gov.in',
+ nodal:'District Sports Officer / CG Tribal Welfare Dept.',
+ docs:['Age proof','Residence proof','ST certificate'],
+ applyLink:'https://tribal.cg.gov.in',source:'CG Tribal Dept',sourceLabel:'CG Tribal Portal'},
+
+];
+
+// DISTRICTS
+const DISTRICTS = [
+  {name:'Raipur',type:'Capital'},{name:'Bilaspur',type:'Divisional HQ'},{name:'Durg',type:'Industrial'},
+  {name:'Rajnandgaon',type:'General'},{name:'Bastar',type:'Tribal & Naxal',tribal:true},
+  {name:'Dantewada',type:'Tribal & Naxal',tribal:true},{name:'Jagdalpur',type:'Tribal'},
+  {name:'Bijapur',type:'Tribal & Naxal',tribal:true},{name:'Sukma',type:'Tribal & Naxal',tribal:true},
+  {name:'Kondagaon',type:'Tribal',tribal:true},{name:'Narayanpur',type:'Tribal',tribal:true},
+  {name:'Kanker',type:'Tribal',tribal:true},{name:'Korba',type:'Industrial'},
+  {name:'Raigarh',type:'Industrial'},{name:'Jashpur',type:'Tribal',tribal:true},
+  {name:'Surguja',type:'Tribal',tribal:true},{name:'Ambikapur',type:'Divisional HQ'},
+  {name:'Balrampur',type:'Tribal',tribal:true},{name:'Surajpur',type:'General'},
+  {name:'Korea',type:'General'},{name:'Gariaband',type:'Tribal',tribal:true},
+  {name:'Mahasamund',type:'General'},{name:'Dhamtari',type:'General'},
+  {name:'Kabirdham',type:'General'},{name:'Mungeli',type:'General'},
+  {name:'Bemetara',type:'General'},{name:'Balod',type:'General'},
+  {name:'Gaurela-Pendra-Marwahi',type:'General'},{name:'Sarangarh-Bilaigarh',type:'General'},
+  {name:'Khairagarh-Chhuriya-Gandai',type:'General'},{name:'Manendragarh',type:'General'},
+  {name:'Shakti',type:'General'},{name:'Mohla-Manpur-Ambagarh Chowki',type:'General'},
+];
+
+// ═══════════════════════════════════
+// RENDER
+// ═══════════════════════════════════
+function renderAll(){
+  const groups = {};
+  SCHEMES.forEach(s=>{ if(!groups[s.subsection]) groups[s.subsection]=[]; groups[s.subsection].push(s); });
+  Object.entries(groups).forEach(([sub,items])=>{
+    const el = document.getElementById(sub);
+    if(el) el.innerHTML = items.map(renderCard).join('');
+  });
+  renderDistricts();
+}
+
+function renderCard(s){
+  const tags = s.tags.map(t=>`<span class="tag ${t}">${tagLabel(t)}</span>`).join('');
+  return `<div class="card" id="card-${s.id}">
+    <div class="card-hdr" onclick="toggleCard(${s.id})">
+      <div class="card-icon ${s.iconCls}">${s.icon}</div>
+      <div class="card-meta">
+        <div class="card-tags">${tags}</div>
+        <div class="card-title">${s.title}</div>
+        <div class="card-dept">${s.dept}</div>
+      </div>
+      <div class="card-arr">▼</div>
+    </div>
+    <div class="card-sum">${s.summary}</div>
+    <div class="card-body" id="body-${s.id}">
+      <div class="card-body-inner">
+        <div class="cb-benefits">
+          <div class="cb-ben-title">Key Benefits</div>
+          ${s.benefits.map(b=>`<div class="cb-ben-item"><div class="cb-dot"></div><span>${b}</span></div>`).join('')}
+        </div>
+        <div class="cb-grid">
+          <div class="cb-item"><div class="cb-k">Eligibility</div><div class="cb-v">${s.eligibility}</div></div>
+          <div class="cb-item"><div class="cb-k">How to Apply</div><div class="cb-v">${s.applyAt}</div></div>
+        </div>
+        <div class="nodal-bar">
+          <span>👤</span>
+          <div class="nodal-txt"><div class="nl">Nodal Officer / Contact</div><div class="nv">${s.nodal}</div></div>
+        </div>
+        <div class="docs-wrap">
+          <div class="cb-ben-title">Documents Required</div>
+          <div class="docs-list">${s.docs.map(d=>`<span class="doc-chip">${d}</span>`).join('')}</div>
+        </div>
+        <div class="apply-bar">
+          <a class="apply-btn" href="${s.applyLink}" target="_blank" rel="noopener">↗ Apply Now</a>
+          <a class="src-link" href="${s.applyLink}" target="_blank">Source: ${s.sourceLabel}</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function tagLabel(t){
+  const m={
+    't-people':'People','t-tribal':'Tribal','t-critical':'Critical','t-company':'Business',
+    't-district':'District','t-health':'Health','t-education':'Education','t-pvtg':'PVTG'
+  };
+  return m[t]||t;
+}
+
+let openCardId=null;
+function toggleCard(id){
+  const card=document.getElementById('card-'+id);
+  const body=document.getElementById('body-'+id);
+  if(openCardId && openCardId!==id){
+    const prev=document.getElementById('card-'+openCardId);
+    const prevBody=document.getElementById('body-'+openCardId);
+    if(prev){prev.classList.remove('open');prevBody.style.display='none';}
+  }
+  if(card.classList.contains('open')){
+    card.classList.remove('open');body.style.display='none';openCardId=null;
+  } else {
+    card.classList.add('open');body.style.display='block';openCardId=id;
+    setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),40);
+  }
+}
+
+function renderDistricts(){
+  const el=document.getElementById('district-grid');
+  el.innerHTML=DISTRICTS.map(d=>`
+    <div class="district-card" onclick="showDistrict('${d.name}','${d.type}',${d.tribal||false})">
+      <div class="dc-name">${d.name}</div>
+      <div class="dc-type ${d.tribal?'tribal':''}">${d.type}${d.tribal?' — Tribal Priority':''}</div>
+    </div>`).join('');
+}
+
+function showDistrict(name,type,tribal){
+  const info=document.getElementById('district-info');
+  const title=document.getElementById('district-info-title');
+  const cards=document.getElementById('district-cards');
+  title.textContent=`${name} District — Local Services & Schemes`;
+  info.style.display='block';
+  const localSchemes=[
+    {icon:'🏥',title:`${name} District Hospital`,desc:'Free OPD, emergency, and specialist services',link:'https://health.cg.gov.in'},
+    {icon:'⚖️',title:'District Collector Office',desc:'Revenue services, certificates, grievances, Jan Sunwai',link:`https://cg.gov.in`},
+    {icon:'📚',title:'District Education Office',desc:'School admissions, scholarships, teacher transfers',link:'https://cg.gov.in'},
+    {icon:'🌾',title:'District Agriculture Office',desc:'PM Kisan, crop insurance, soil health, Krishak Unnati',link:'https://agriportal.cg.nic.in'},
+    {icon:'💼',title:'District Industries Centre (DIC)',desc:'MSME registration, IDP subsidies, Udyam',link:'https://industries.cg.gov.in'},
+    {icon:'📝',title:'e-District Portal — All Certificates',desc:'Caste, income, domicile, ration card online',link:'https://edistrict.cgstate.gov.in'},
+  ];
+  if(tribal){
+    localSchemes.push({icon:'🌿',title:'District Tribal Welfare Office',desc:'Tribal scholarships, FRA claims, EMRS admission, PVTG schemes',link:'https://tribal.cg.gov.in'});
+    localSchemes.push({icon:'🌳',title:'Forest Rights Committee',desc:'FRA land title claims — Individual and Community Forest Rights',link:'https://tribal.nic.in/fra.aspx'});
+  }
+  cards.innerHTML=localSchemes.map(s=>`
+    <div class="card">
+      <div class="card-hdr">
+        <div class="card-icon ci-blue" style="font-size:18px">${s.icon}</div>
+        <div class="card-meta">
+          <div class="card-title">${s.title}</div>
+          <div class="card-dept">${s.desc}</div>
+        </div>
+      </div>
+      <div class="card-sum" style="padding:0 18px 14px 68px">
+        <a href="${s.link}" target="_blank" class="apply-btn" style="font-size:12px;padding:6px 14px;display:inline-flex;margin-top:4px">↗ Visit Portal</a>
+      </div>
+    </div>`).join('');
+  info.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════
+// SECTION SWITCHING
+// ═══════════════════════════════════
+function showSection(id, navEl, tabSec){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+
+  // nav links
+  document.querySelectorAll('.hdr-nav a').forEach(a=>a.classList.remove('active'));
+  if(navEl) navEl.classList.add('active');
+
+  // hero tabs
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  const sec = tabSec||id;
+  const tab = document.querySelector(`.ftab[data-sec="${sec}"]`);
+  if(tab) tab.classList.add('active');
+
+  window.scrollTo({top:document.querySelector('.gsearch').offsetTop-70,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════
+// GLOBAL SEARCH
+// ═══════════════════════════════════
+function globalSearch(q){
+  const query=q.toLowerCase().trim();
+  const cnt=document.getElementById('searchCount');
+  // sync both search inputs
+  document.getElementById('hdrSearch').value=q;
+  document.getElementById('mainSearch').value=q;
+
+  if(!query){
+    SCHEMES.forEach(s=>{
+      const c=document.getElementById('card-'+s.id);
+      if(c) c.style.display='';
+    });
+    cnt.textContent='';
+    return;
+  }
+  let shown=0;
+  SCHEMES.forEach(s=>{
+    const hay=[s.title,s.summary,s.dept,...s.benefits,s.eligibility,...s.docs].join(' ').toLowerCase();
+    const match=hay.includes(query);
+    const c=document.getElementById('card-'+s.id);
+    if(c){c.style.display=match?'':'none';}
+    if(match)shown++;
+  });
+  cnt.textContent=shown+' results';
+}
+
+// ═══════════════════════════════════
+// WIZARD
+// ═══════════════════════════════════
+const WIZ_STEPS=[
+  {q:'Who are you?',hint:'Select your primary role',key:'role',opts:[
+    {icon:'🌾',l:'Farmer / Agricultural Worker',v:'farmer'},
+    {icon:'🌿',l:'Tribal Community Member',v:'tribal'},
+    {icon:'🚀',l:'Entrepreneur / Startup Founder',v:'entrepreneur'},
+    {icon:'👷',l:'Construction / Unorganised Worker',v:'labour'},
+    {icon:'👩',l:'Woman seeking support',v:'women'},
+    {icon:'🎓',l:'Student',v:'student'},
+    {icon:'🌳',l:'Forest Produce Collector / Artisan',v:'forest'},
+    {icon:'👵',l:'PVTG Community (Kamar, Baiga etc.)',v:'pvtg'},
+  ]},
+  {q:'What do you need most?',hint:'Select your primary need',key:'need',opts:[
+    {icon:'💰',l:'Cash / Financial Support',v:'cash'},
+    {icon:'🏠',l:'Housing / Land Rights',v:'land'},
+    {icon:'📚',l:'Education / Scholarship',v:'edu'},
+    {icon:'🏥',l:'Health / Medical',v:'health'},
+    {icon:'💼',l:'Business / Employment',v:'work'},
+    {icon:'⚖️',l:'Legal Protection / Rights',v:'legal'},
+  ]}
+];
+
+let wizStep=0,wizAns={};
+
+function openWizard(){wizStep=0;wizAns={};document.getElementById('wizOverlay').classList.add('open');renderWiz();}
+function closeWizard(){document.getElementById('wizOverlay').classList.remove('open');}
+
+function renderWiz(){
+  const bar=document.getElementById('wizBar');
+  const content=document.getElementById('wizContent');
+  if(wizStep>=WIZ_STEPS.length){
+    bar.style.width='100%';
+    const matches=matchWiz(wizAns);
+    content.innerHTML=`<div class="wiz-body">
+      <div class="wiz-res-title">Policies matching your profile (${matches.length})</div>
+      ${matches.length
+        ?matches.map(s=>`<div class="wiz-match" onclick="goToScheme(${s.id})"><div class="wiz-match-t">${s.title}</div><div class="wiz-match-s">${s.dept}</div></div>`).join('')
+        :'<div class="wiz-none">Try browsing by section — use the filters above.</div>'}
+    </div>
+    <div class="wiz-foot"><button class="btn-sec" onclick="closeWizard()">Close</button></div>`;
+    return;
+  }
+  const step=WIZ_STEPS[wizStep];
+  bar.style.width=(wizStep/WIZ_STEPS.length*100)+'%';
+  content.innerHTML=`<div class="wiz-body">
+    <div class="wiz-q">${step.q}</div>
+    <div class="wiz-hint">${step.hint}</div>
+    <div class="wiz-opts">
+      ${step.opts.map(o=>`<div class="wiz-opt${wizAns[step.key]===o.v?' sel':''}" onclick="selWiz('${step.key}','${o.v}',this)">
+        <span class="wiz-opt-icon">${o.icon}</span><span>${o.l}</span>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="wiz-foot">
+    ${wizStep>0?`<button class="btn-sec" onclick="wizBack()">← Back</button>`:'<span></span>'}
+    <button class="btn-prim" id="wizNext" onclick="wizNext()" ${!wizAns[step.key]?'disabled':''}>
+      ${wizStep===WIZ_STEPS.length-1?'Show my schemes →':'Next →'}
+    </button>
+  </div>`;
+}
+
+function selWiz(key,val,el){
+  wizAns[key]=val;
+  document.querySelectorAll('.wiz-opt').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('wizNext').disabled=false;
+}
+function wizNext(){wizStep++;renderWiz();}
+function wizBack(){wizStep--;renderWiz();}
+
+function matchWiz(a){
+  const roleMap={
+    farmer:['farmer','Farmer','Cattle Rearer','Landless Agricultural Labourer'],
+    tribal:['tribal','Tribal','ST','SC/ST'],
+    entrepreneur:['entrepreneur','Business','MSME','Startup','company'],
+    labour:['labour','Construction','Worker'],
+    women:['women','Woman','Women'],
+    student:['student','Student','Education','Scholar'],
+    forest:['forest','Forest','MFP','tribal'],
+    pvtg:['pvtg','PVTG','tribal'],
+  };
+  const needMap={
+    cash:['cash','subsidy','₹','payment','pension','allowance'],
+    land:['land','housing','forest','patta','rights'],
+    edu:['education','scholarship','school','college','coaching','study'],
+    health:['health','medical','hospital','medicine','treatment'],
+    work:['business','employment','work','loan','scheme','subsidy'],
+    legal:['legal','protection','rights','law','complaint','atrocity'],
+  };
+  const roleKw=(roleMap[a.role]||[]).map(x=>x.toLowerCase());
+  const needKw=(needMap[a.need]||[]);
+
+  return SCHEMES.filter(s=>{
+    const hay=[s.title,s.summary,...s.benefits,s.eligibility,s.section].join(' ').toLowerCase();
+    const roleMatch=!roleKw.length||roleKw.some(k=>hay.includes(k));
+    const needMatch=!needKw.length||needKw.some(k=>hay.includes(k));
+    return roleMatch&&needMatch;
+  }).slice(0,8);
+}
+
+function goToScheme(id){
+  closeWizard();
+  const s=SCHEMES.find(x=>x.id===id);
+  if(s){
+    // show correct section
+    document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+    document.getElementById('sec-'+s.section).classList.add('active');
+    // update tabs
+    document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+    const tab=document.querySelector(`.ftab[data-sec="${s.section}"]`);
+    if(tab)tab.classList.add('active');
+    // scroll and open
+    setTimeout(()=>{
+      const card=document.getElementById('card-'+id);
+      if(card){card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>toggleCard(id),400);}
+    },100);
+  }
+}
+
+// ── INIT ──
+renderAll();
+</script>
+</body>
+</html>
